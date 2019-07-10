@@ -5,13 +5,14 @@
     <title>Edit user menu</title>
 </head>
 <body>
+<link href="styles.css" rel="stylesheet" type="text/css"/>
 <h4>Add new user:</h4>
 <form action="addUser" method="post">
     <input placeholder="first name" type="text" name="firstName">
     <input placeholder="last name" type="text" name="lastName">
     <input placeholder="rate" type="number" name="rate">
-<!--    <input placeholder="stan magaz" type="number" name="stockAmount">-->
-    <select name="userDepartment" >
+    <!--    <input placeholder="stan magaz" type="number" name="stockAmount">-->
+    <select name="userDepartment">
         <option value="" th:text="Select"></option>
         <option th:each="ud :${departmentTypes}" th:text="${ud}" th:value="${ud}"></option>
     </select>
@@ -21,10 +22,10 @@
 <h4>Users List:</h4>
 <table border="1px">
     <tr>
-        <th>Id </th>
-        <th>first Name </th>
-        <th>last Name </th>
-        <th>rate </th>
+        <th>Id</th>
+        <th>first Name</th>
+        <th>last Name</th>
+        <th>rate</th>
     </tr>
     <tr th:each="userEntity : ${usersList}">
         <td th:text="${userEntity.id}"></td>
@@ -35,11 +36,12 @@
 </table>
 <br>
 <h4>Please choose user to edit:</h4>
-    <select name="dropdown">
-        <option value="01">Name1</option>
-        <option value="02">Name2</option>
-        <option value="03">Name3</option>
-        <option value="04">Name4</option>
-    </select>
+<select name="dropdown">
+    <option value="01">Name1</option>
+    <option value="02">Name2</option>
+    <option value="03">Name3</option>
+    <option value="04">Name4</option>
+</select>
+
 </body>
 </html>
