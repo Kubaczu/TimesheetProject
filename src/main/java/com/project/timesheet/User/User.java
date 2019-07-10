@@ -1,20 +1,28 @@
 package com.project.timesheet.User;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.project.timesheet.BaseEntity;
+import lombok.*;
 
+import java.math.BigDecimal;
+
+import javax.persistence.*;
+
+
+@Entity
 @Getter
 @Setter
 @NoArgsConstructor
-public class User {
+@AllArgsConstructor
+public class User extends BaseEntity {
 
     String firstName;
     String lastName;
 
     Integer rate;
 
-    Integer tempHours;
+    @Enumerated(EnumType.STRING)
+    UserDepartment userDepartment;
 
+    Integer tempHours;
     Integer salary;
 }

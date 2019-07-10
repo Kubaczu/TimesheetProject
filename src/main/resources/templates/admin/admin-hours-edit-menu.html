@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit hours by user</title>
+</head>
+<body>
+<h4>Please choose user to edit his hours:</h4>
+<i>"drop-down menu with user list"</i>
+<br><br><br>
+<table  style="width: 70%" cellpadding="1" border="1px">
+    <tbody>
+        <tr>
+            <td th:each="day : ${daysOfWeek}" th:text="${day}">
+            </td>
+        </tr>
+        <tr>
+            <td th:each="day : ${daysOfWeek}" > User hours </td>
+        </tr>
+    </tbody>
+</table>
+</body>
+</html>

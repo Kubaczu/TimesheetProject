@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit user menu</title>
+</head>
+<body>
+<h4>Add new user:</h4>
+<form action="addUser" method="post">
+    <input placeholder="first name" type="text" name="firstName">
+    <input placeholder="last name" type="text" name="lastName">
+    <input placeholder="rate" type="number" name="rate">
+<!--    <input placeholder="stan magaz" type="number" name="stockAmount">-->
+    <select name="userDepartment" >
+        <option value="" th:text="Select"></option>
+        <option th:each="ud :${departmentTypes}" th:text="${ud}" th:value="${ud}"></option>
+    </select>
+    <button>Save</button>
+</form>
+<br>
+<h4>Users List:</h4>
+<table border="1px">
+    <tr>
+        <th>Id </th>
+        <th>first Name </th>
+        <th>last Name </th>
+        <th>rate </th>
+    </tr>
+    <tr th:each="userEntity : ${usersList}">
+        <td th:text="${userEntity.id}"></td>
+        <td th:text="${userEntity.firstName}"></td>
+        <td th:text="${userEntity.lastName}"></td>
+        <td th:text="${userEntity.rate}"></td>
+    </tr>
+</table>
+<br>
+<h4>Please choose user to edit:</h4>
+"drop-down menu with the list of the users"
+</body>
+</html>
