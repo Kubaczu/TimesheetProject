@@ -19,6 +19,8 @@
     <button>Save</button>
 </form>
 <br>
+
+
 <h4>Users List:</h4>
 <table border="1px">
     <tr>
@@ -35,13 +37,20 @@
     </tr>
 </table>
 <br>
-<h4>Please choose user to edit:</h4>
-<select name="dropdown">
-    <option value="01">Name1</option>
-    <option value="02">Name2</option>
-    <option value="03">Name3</option>
-    <option value="04">Name4</option>
-</select>
 
+
+
+<h4>Please choose user to edit:</h4>
+<br>
+<form action="editUser" method="post">
+<select name="id" >
+    <option th:each="userEntity2 : ${usersList}" th:text="${userEntity2.id}" th:value="${userEntity2.id}"><option/>
+</select>
+    <br>
+    <input placeholder="first name" type="text" name="firstName">
+    <input placeholder="last name" type="text" name="lastName">
+    <input placeholder="rate" type="number" name="rate">
+    <button>Edit</button>
+</form>
 </body>
 </html>

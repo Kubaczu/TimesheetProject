@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.time.DayOfWeek;
+import java.util.List;
 
 @Controller
 @RequestMapping("/admin")
@@ -62,9 +63,10 @@ public class AdminController {
     }
 
     @RequestMapping("editUser") //  @TODO: skończyć
-    public String editUser(Model model) {
-
-        return "/admin/";
+    public String editUser(@ModelAttribute("user") User user)  {
+        System.out.println(user.getId());
+        userService.editUser(user);
+        return "redirect:/admin/showAdminMenu"; //  @TODO: poprawić
     }
 
     //  Calculate

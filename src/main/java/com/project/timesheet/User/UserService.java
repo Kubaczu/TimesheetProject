@@ -12,4 +12,9 @@ public class UserService {
     public void addUser(User user) {
         userRepository.save(user);
     }
+
+    public void editUser(User user) {
+        userRepository.deleteById(user.getId());
+        userRepository.save(user);
+    }
 }
