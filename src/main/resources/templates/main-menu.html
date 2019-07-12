@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Main Menu</title>
@@ -7,7 +7,17 @@
 <body>
 Please choose account type:
 <br><br>
-<a href="user/showUserMenu"> User Account</a>
+<!--<a href="user/showUserMenu"> User Account</a>-->
+<form action="user/showUserMenu" method="post">
+    <select name="id">
+        <option th:each="userEntity : ${usersList}"
+                th:text="${userEntity.id} + ' ' + ${userEntity.firstName} + ' ' + ${userEntity.lastName}"
+                th:value="${userEntity.id}">
+        <option/>
+    </select>
+    <br>
+    <button>Log in</button>
+</form>
 <br><br>
 <a href="admin/showAdminMenu"> Admin Account</a>
 </body>

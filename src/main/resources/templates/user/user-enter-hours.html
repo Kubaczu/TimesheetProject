@@ -1,10 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Form to enter hours </title>
 </head>
 <body>
 Pokazuje formularz do wpisywania godzin usera
+<form action="addHours" method="post">
+    <input placeholder="day of Month" type="text" name="dayOfMonth">
+    <select name="month">
+        <option value="" th:text="Select"></option>
+        <option th:each="month :${months}" th:text="${month}" th:value="${month}"></option>
+    </select>
+    <input placeholder="hours" type="text" name="tempHours">
+    <button>Save</button>
+</form>
 </body>
 </html>

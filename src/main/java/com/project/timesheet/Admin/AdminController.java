@@ -48,6 +48,7 @@ public class AdminController {
     //  Edit Users
     @RequestMapping("showUserEditForm")
     public String showUserEditForm(Model model) {
+
         model.addAttribute("departmentTypes", UserDepartment.values());
         model.addAttribute("user", new User());
         model.addAttribute("usersList", userRepository.findAll());

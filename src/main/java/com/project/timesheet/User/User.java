@@ -3,8 +3,6 @@ package com.project.timesheet.User;
 import com.project.timesheet.BaseEntity;
 import lombok.*;
 
-import java.math.BigDecimal;
-
 import javax.persistence.*;
 
 

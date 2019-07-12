@@ -1,17 +1,28 @@
 package com.project.timesheet.User;
 
+import com.project.timesheet.Entities.Year;
+import com.project.timesheet.Entities.YearService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.time.Month;
+
 @Controller
 @RequestMapping("/user")
 public class UserController {
 
+    int loggedUserId;
+
+    @Autowired
+    YearService yearService;
+
     @RequestMapping("/showUserMenu") // Pokazuje główne menu usera
-    public String showUserMenu() {
+    public String showUserMenu(@ModelAttribute("loggedUser") User user) {
+        System.out.println("Logged user ID is : " + user.getId());
+        loggedUserId = user.getId();
         System.out.println("inside method: showUserMenu()");
         return "/user/user-menu";
     }
@@ -37,9 +48,18 @@ public class UserController {
     @RequestMapping("/showEnterHours")  // Pokazuje formularz do wpisywania godzin usera
     public String showEnterHours(Model model){
         System.out.println("inside method: showEnterHours()");
+        model.addAttribute("months", Month.values());
         model.addAttribute("user", new User());
+        model.addAttribute("day", new Year());
         return "/user/user-enter-hours";
     }
+    @RequestMapping("/addHours")
+    public String addHours(@ModelAttribute("user") User user, @ModelAttribute("day") Year year){
+        System.out.println("wpisano " + user.getTempHours() + "h dnia:" + year.getDayOfMonth() + " " + year.getMonth());
+//        @TODO: Tu trzeba wpisac metode zapisu godzin do tebeli hours
+        return "/user/user-enter-hours";
+    }
+
 
     @RequestMapping("/showViewHours") // Pokazuje podsumowanie godzin usera
     public String showViewHours(Model model){
