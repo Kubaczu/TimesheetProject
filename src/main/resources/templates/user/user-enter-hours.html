@@ -7,11 +7,7 @@
 <body>
 Pokazuje formularz do wpisywania godzin usera
 <form action="addHours" method="post">
-    <input placeholder="day of Month" type="text" name="dayOfMonth">
-    <select name="month">
-        <option value="" th:text="Select"></option>
-        <option th:each="month :${months}" th:text="${month}" th:value="${month}"></option>
-    </select>
+    <input type="date" name="date">
     <input placeholder="hours" type="text" name="tempHours">
     <button>Save</button>
 </form>
