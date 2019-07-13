@@ -7,6 +7,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.List;
 
 
 public interface TimeEntryRepository extends JpaRepository<TimeEntry, Integer> {
@@ -18,5 +19,11 @@ public interface TimeEntryRepository extends JpaRepository<TimeEntry, Integer> {
             @Param("userID") int userId,
             @Param("date") LocalDate date,
             @Param("hours") int hours);
+
+    @Modifying
+    @Query(value = "SELECT INTO time_entry (user_ID, date, hours) VALUES (:userId)", // TODO: skończyć
+            nativeQuery = true)
+    List<TimeEntry> showUserHours(
+            @Param("userID") int userId);
 
 }

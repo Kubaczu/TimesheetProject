@@ -57,20 +57,25 @@ public class UserController {
     }
 
     @RequestMapping("/showEnterHours")  // Pokazuje formularz do wpisywania godzin usera
-    public String showEnterHours(Model model){
+    public String showEnterHours(Model model) {
         System.out.println("inside method: showEnterHours()");
         model.addAttribute("user", new User());
         model.addAttribute("timeEntry", new TimeEntry());
+        String confirmationMessage = "";
+        model.addAttribute("message", confirmationMessage);
         return "/user/user-enter-hours";
     }
 
     @RequestMapping("/addHours")
     public String addHours(
+            Model model,
             @ModelAttribute("user") User user,
             @ModelAttribute("timeEntry") TimeEntry timeEntry
-    ){
+    ) {
         System.out.println("wpisano " + user.getTempHours() + "h dnia:" + timeEntry.getDate());
-         timeEntryService.addHour(loggedUserId, timeEntry.getDate() ,user.getTempHours());
+        timeEntryService.addHour(loggedUserId, timeEntry.getDate(), user.getTempHours());
+        String confirmationMessage = "Successfully added " + user.getTempHours() + " hours to " + timeEntry.getDate();
+        model.addAttribute("message", confirmationMessage);
         return "/user/user-enter-hours";
     }
 
@@ -84,7 +89,7 @@ public class UserController {
 
 
     @RequestMapping("/showViewHours") // Pokazuje podsumowanie godzin usera
-    public String showViewHours(Model model){
+    public String showViewHours(Model model) {
         System.out.println("inside method: showViewHours()");
         model.addAttribute("user", new User());
         return "/user/user-view-hours";
