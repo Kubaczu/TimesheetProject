@@ -1,5 +1,6 @@
 package com.project.timesheet.Admin;
 
+import com.project.timesheet.Entities.TimeEntry;
 import com.project.timesheet.Entities.TimeEntryRepository;
 import com.project.timesheet.Entities.TimeEntryService;
 import com.project.timesheet.User.User;
@@ -53,7 +54,10 @@ public class AdminController {
             @ModelAttribute("user") User user, Model model){
         List<Integer> usersId = new ArrayList<>();
         usersId.add(user.getId());
-        model.addAttribute("userEntries", timeEntryRepository.findAllById(usersId));
+//        model.addAttribute("userEntries", timeEntryRepository.findAll());
+        List<TimeEntry> userTimeEntries = timeEntryRepository.showUserHours(user.getId());
+        System.out.println("After asigning a list");
+        model.addAttribute("userEntries", userTimeEntries);
         System.out.println(user.getId());
         return "/admin/admin-hours-view-user";
     }

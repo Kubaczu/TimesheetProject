@@ -20,10 +20,9 @@ public interface TimeEntryRepository extends JpaRepository<TimeEntry, Integer> {
             @Param("date") LocalDate date,
             @Param("hours") int hours);
 
-//    @Modifying
-//    @Query(value = "SELECT FEOM time_entry WHERE (user_ID) VALUES (:userId)", // TODO: skończyć
-//            nativeQuery = true)
-//    List<TimeEntry> showUserHours(
-//            @Param("userID") int userId);
+    @Query(value = "SELECT * FROM time_entry te WHERE te.user_ID like (:userID)", // TODO: skończyć
+            nativeQuery = true)
+    List<TimeEntry> showUserHours(
+            @Param("userID") int userID);
 
 }
