@@ -1,21 +1,11 @@
 package com.project.timesheet.User;
 
 import com.project.timesheet.Entities.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.sql.Date;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.Month;
-import java.time.format.DateTimeFormatter;
 
 
 @Controller
@@ -31,7 +21,8 @@ public class UserController {
     TimeEntryService timeEntryService;
 
     @RequestMapping("/showUserMenu") // Pokazuje główne menu usera
-    public String showUserMenu(@ModelAttribute("loggedUser") User user) {
+    public String showUserMenu(
+            @ModelAttribute("loggedUser") User user) {
         System.out.println("Logged user ID is : " + user.getId());
         loggedUserId = user.getId();
         System.out.println("inside method: showUserMenu()");
@@ -39,14 +30,16 @@ public class UserController {
     }
 
     @RequestMapping("/showCalculateForm") //    @TODO: To be deleted
-    public String showCalculateForm(Model model) {
+    public String showCalculateForm(
+            Model model) {
         System.out.println("inside method: showCalculateForm()");
         model.addAttribute("user", new User());
         return "/user/user-calculate";
     }
 
     @RequestMapping("/showUserCalculateSummary") //    @TODO: To be deleted
-    public String showUserCalculateSummary(@ModelAttribute("user") User user) {
+    public String showUserCalculateSummary(
+            @ModelAttribute("user") User user) {
         System.out.println("inside method: showUserCalculateSummary()");
         System.out.println("tempHours: " + user.getTempHours());
         user.setRate(60);
@@ -57,7 +50,8 @@ public class UserController {
     }
 
     @RequestMapping("/showEnterHours")  // Pokazuje formularz do wpisywania godzin usera
-    public String showEnterHours(Model model) {
+    public String showEnterHours(
+            Model model) {
         System.out.println("inside method: showEnterHours()");
         model.addAttribute("user", new User());
         model.addAttribute("timeEntry", new TimeEntry());
@@ -79,21 +73,21 @@ public class UserController {
         return "/user/user-enter-hours";
     }
 
-    @Getter
-    @Setter
-    @NoArgsConstructor
-    private class TimeEntryForm {
-        @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-        private LocalDate date;
-    }
-
-
     @RequestMapping("/showViewHours") // Pokazuje podsumowanie godzin usera
-    public String showViewHours(Model model) {
+    public String showViewHours(
+            Model model) {
         System.out.println("inside method: showViewHours()");
         model.addAttribute("user", new User());
         return "/user/user-view-hours";
     }
 
 
+//    @Getter
+    ////    @Setter
+    ////    @NoArgsConstructor
+    ////    private class TimeEntryForm {
+    ////        @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    ////        private LocalDate date;
+    //
+    //    //    }
 }

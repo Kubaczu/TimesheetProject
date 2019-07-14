@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Menu for viewing entered hours</title>
@@ -7,6 +7,17 @@
 
 <body>
 View hours by user: "dropdown menu"
+<br>
+<form action="showHoursByUser" method="post" >
+    <select name="id">
+        <option th:each="userEntity : ${usersList}"
+                th:text="${userEntity.id} + ' ' + ${userEntity.firstName} + ' ' + ${userEntity.lastName}"
+                th:value="${userEntity.id}">
+        <option/>
+    </select>
+    <br>
+    <button>Show Hours</button>
+</form>
 <br><br>
 View hours by week: "dropdown menu"
 </body>

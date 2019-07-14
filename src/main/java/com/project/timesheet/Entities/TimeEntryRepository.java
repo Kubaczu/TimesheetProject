@@ -20,10 +20,10 @@ public interface TimeEntryRepository extends JpaRepository<TimeEntry, Integer> {
             @Param("date") LocalDate date,
             @Param("hours") int hours);
 
-    @Modifying
-    @Query(value = "SELECT INTO time_entry (user_ID, date, hours) VALUES (:userId)", // TODO: skończyć
-            nativeQuery = true)
-    List<TimeEntry> showUserHours(
-            @Param("userID") int userId);
+//    @Modifying
+//    @Query(value = "SELECT FEOM time_entry WHERE (user_ID) VALUES (:userId)", // TODO: skończyć
+//            nativeQuery = true)
+//    List<TimeEntry> showUserHours(
+//            @Param("userID") int userId);
 
 }

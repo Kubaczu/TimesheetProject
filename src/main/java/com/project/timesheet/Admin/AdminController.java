@@ -1,5 +1,7 @@
 package com.project.timesheet.Admin;
 
+import com.project.timesheet.Entities.TimeEntryRepository;
+import com.project.timesheet.Entities.TimeEntryService;
 import com.project.timesheet.User.User;
 import com.project.timesheet.User.UserDepartment;
 import com.project.timesheet.User.UserRepository;
@@ -8,9 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.time.DayOfWeek;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -23,6 +27,12 @@ public class AdminController {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    TimeEntryService timeEntryService;
+
+    @Autowired
+    TimeEntryRepository timeEntryRepository;
+
     //  Main Admin Menu
     @RequestMapping("/showAdminMenu")
     public String showAdminMenu() {
@@ -34,11 +44,23 @@ public class AdminController {
     @RequestMapping("/showHoursViewMenu")
     public String showHoursViewMenu(Model model) {
         model.addAttribute("user", new User());
+        model.addAttribute("usersList", userRepository.findAll());
         return "/admin/admin-hours-view-menu";
     }
 
+    @RequestMapping("/showHoursByUser")
+    public String showHoursByUser(
+            @ModelAttribute("user") User user, Model model){
+        List<Integer> usersId = new ArrayList<>();
+        usersId.add(user.getId());
+        model.addAttribute("userEntries", timeEntryRepository.findAllById(usersId));
+        System.out.println(user.getId());
+        return "/admin/admin-hours-view-user";
+    }
+
+
     //  Edit Hours
-    @RequestMapping("showHoursEditMenu")
+    @RequestMapping("/showHoursEditMenu")
     public String showHoursEditMenu(Model model) {
         model.addAttribute("user", new User());
         model.addAttribute("daysOfWeek", DayOfWeek.values());
@@ -46,7 +68,7 @@ public class AdminController {
     }
 
     //  Edit Users
-    @RequestMapping("showUserEditForm")
+    @RequestMapping("/showUserEditForm")
     public String showUserEditForm(Model model) {
 
         model.addAttribute("departmentTypes", UserDepartment.values());
@@ -56,14 +78,14 @@ public class AdminController {
         return "/admin/admin-user-edit-form";
     }
 
-    @RequestMapping("addUser")
+    @RequestMapping("/addUser")
     public String addUser(@ModelAttribute("user") User user) {
         System.out.println(user.getFirstName() + " " + user.getLastName() + " " + user.getRate());
         userService.addUser(user);
         return "redirect:/admin/showAdminMenu";
     }
 
-    @RequestMapping("editUser") //  @TODO: skończyć
+    @RequestMapping("/editUser") //  @TODO: skończyć
     public String editUser(@ModelAttribute("user") User user)  {
         System.out.println(user.getId());
         userService.editUser(user);
@@ -71,7 +93,7 @@ public class AdminController {
     }
 
     //  Calculate
-    @RequestMapping("showSalaryCalculationMenu")
+    @RequestMapping("/showSalaryCalculationMenu")
     public String showSalaryCalculationMenu(Model model) {
         model.addAttribute("user", new User());
         return "/admin/admin-salary-calculation-menu";
