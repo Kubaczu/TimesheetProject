@@ -5,7 +5,6 @@
     <title>Entered hours of selected user</title>
 </head>
 <body>
-
 <table border="1px">
     <tr>
         <th>Id</th>
@@ -15,7 +14,7 @@
     </tr>
     <tr th:each="userEntity : ${userEntries}">
         <td th:text="${userEntity.id}"></td>
-        <td th:text="${userEntity.userId}"></td>
+        <td th:text="${userEntity.user.id}"></td>
         <td th:text="${userEntity.date}"></td>
         <td th:text="${userEntity.hours}"></td>
     </tr>
