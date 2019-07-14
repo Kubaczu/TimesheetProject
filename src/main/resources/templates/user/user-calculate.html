@@ -3,8 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>User Calculation Form</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
 </head>
 <body>
+<div class="header">
+    Use calculation form
+</div>
 
 <form method="post" action=showUserCalculateSummary th:object="${user}">
     Hours:
@@ -12,6 +16,6 @@
     <br><br>
     <input type="submit" value="Calculate"/>
 </form>
-
+<div class="footer"><br>© Katarzyna Matuszewska, Jakub Turek 2019<br></div>
 </body>
 </html>

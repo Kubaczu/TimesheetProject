@@ -3,8 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Entered hours of selected user</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
 </head>
 <body>
+<div class="header">
+    Entered hours of selected user
+</div>
 <table border="1px">
     <tr>
         <th>Id</th>
@@ -19,6 +23,6 @@
         <td th:text="${userEntity.hours}"></td>
     </tr>
 </table>
-
+<div class="footer"><br>© Katarzyna Matuszewska, Jakub Turek 2019<br></div>
 </body>
 </html>

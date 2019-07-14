@@ -3,12 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Main Menu</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
 </head>
 <body>
-Please choose account type:
+<div class="header">
+Welcome! Please log in
+</div>
+<h1>Please choose account type:</h1>
+
 <br><br>
 <!--<a href="user/showUserMenu"> User Account</a>-->
-<form action="user/showUserMenu" method="post">
+<form action="user/showUserMenu" method="post" th:align=".form">
     <select name="id">
         <option th:each="userEntity : ${usersList}"
                 th:text="${userEntity.id} + ' ' + ${userEntity.firstName} + ' ' + ${userEntity.lastName}"
@@ -19,6 +24,7 @@ Please choose account type:
     <button>Log in</button>
 </form>
 <br><br>
-<a href="admin/showAdminMenu"> Admin Account</a>
+<a href="admin/showAdminMenu" th:align="center"> Admin Account</a>
+<div class="footer"><br>© Katarzyna Matuszewska, Jakub Turek 2019<br></div>
 </body>
 </html>

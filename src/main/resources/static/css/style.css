@@ -1,0 +1,70 @@
+html, body {
+    margin:0;
+    padding:0;
+    height:100%;
+    background-color: #ccffe6;
+}
+.container {
+    min-height:100%;
+    position:relative;
+}
+.header {
+    background:#66ff99;
+    padding:30px;
+    font-family: Calibri;
+    font-variant: small-caps;
+}
+.middle {
+    padding:10px;
+    padding-bottom:60px;	/* Wysokość nagłówka */
+}
+.footer {
+    position:absolute;
+    bottom:10px;
+    width:100%;
+    height:60px;		/* Wysokość nagłówka */
+    background: #66ff99;
+    text-align: center;
+}
+i {
+    text-decoration-color: #aee299;
+}
+
+h1 {
+    color: darkgreen;
+    text-align: center;
+    font-family: "Arial Black";
+    font-style: inherit;
+}
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 200px;
+    background-color: #f1f1f1;
+    alignment: center;
+    list-style-type: none;
+    display: inline-block;
+}
+
+li a {
+    display: block;
+    color: #000;
+    padding: 8px 16px;
+    text-decoration: none;
+    alignment: center;
+}
+
+/* Change the link color on hover */
+li a:hover {
+    background-color: #555;
+    color: white;
+}
+
+a {
+    color: #0033cc;
+    text-align: center;
+    size: 20px;
+    font-family: "Courier New";
+
+}

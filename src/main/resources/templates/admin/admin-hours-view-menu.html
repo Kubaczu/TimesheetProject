@@ -3,9 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Menu for viewing entered hours</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
 </head>
 
 <body>
+<div class="header">
+    Please choose user to view hours:
+</div>
 View hours by user: "dropdown menu"
 <br>
 <form action="showHoursByUser" method="post" >
@@ -20,5 +24,6 @@ View hours by user: "dropdown menu"
 </form>
 <br><br>
 View hours by week: "dropdown menu"
+<div class="footer"><br>© Katarzyna Matuszewska, Jakub Turek 2019<br></div>
 </body>
 </html>
