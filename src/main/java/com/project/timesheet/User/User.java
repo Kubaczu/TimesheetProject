@@ -26,8 +26,11 @@ public class User extends BaseEntity {
     Integer tempHours;
     Integer salary;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+//    @JoinColumn(name = "user_ID")
+
     List<TimeEntry> entries;
+
 
     public void addEntry(TimeEntry timeEntry) {
         this.entries.add(timeEntry);

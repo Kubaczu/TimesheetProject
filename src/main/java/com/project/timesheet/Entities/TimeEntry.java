@@ -1,15 +1,16 @@
 package com.project.timesheet.Entities;
 
 import com.project.timesheet.BaseEntity;
-import javafx.util.converter.LocalDateStringConverter;
+import com.project.timesheet.User.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Entity;
-import java.sql.Date;
-import java.time.LocalDate;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
 
 @Entity
 @Getter
@@ -18,7 +19,12 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class TimeEntry extends BaseEntity {
 
-    private int userId;
+    @ManyToOne
+    @JoinColumn(name = "user_ID")
+    private User user;
+
+//
+//    private int userId;
 
     private String date;
 
