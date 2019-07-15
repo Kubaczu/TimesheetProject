@@ -9,21 +9,30 @@
 <div class="header">
     Please choose user to edit his hours:
 </div>
-<i>"drop-down menu with user list"</i>
-<br><br><br>
-<table  style="width: 70%" cellpadding="1" border="1px">
-    <tbody>
-        <tr>
-            <td th:each="day : ${daysOfWeek}" th:text="${day}">
-            </td>
-        </tr>
-        <tr>
-            <td th:each="day : ${daysOfWeek}" > User hours </td>
-        </tr>
-    </tbody>
-</table>
-<br><br>
-<input type="date" name="date"/>
+
+<div class="back-to-menu">
+    <li><a href="../admin-menu.html" th:href="@{/admin/showAdminMenu}">Admin menu</a></li>
+</div>
+
+<div class="middle">
+    <i>"drop-down menu with user list"</i>
+    <br><br><br>
+    <div style="overflow-x:auto">
+        <table style="width: 70%" cellpadding="1" border="1px">
+            <tbody>
+            <tr>
+                <td th:each="day : ${daysOfWeek}" th:text="${day}">
+                </td>
+            </tr>
+            <tr>
+                <td th:each="day : ${daysOfWeek}"> User hours</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <br><br>
+    <input type="date" name="date"/>
+</div>
 <div class="footer"><br>© Katarzyna Matuszewska, Jakub Turek 2019<br></div>
 </body>
 </html>

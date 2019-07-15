@@ -9,6 +9,14 @@
 <div class="header">
     Entered hours of selected user
 </div>
+
+<div class="back-to-menu">
+    <li><a href="../admin-menu.html" th:href="@{/admin/showAdminMenu}">Admin menu</a></li>
+</div>
+
+
+<div class="middle">
+<div style="overflow-x:auto">
 <table border="1px">
     <tr>
         <th>Id</th>
@@ -23,7 +31,8 @@
         <td th:text="${userEntity.hours}"></td>
     </tr>
 </table>
-
+</div>
+</div>
 <div class="footer"><br>© Katarzyna Matuszewska, Jakub Turek 2019<br></div>
 </body>
 </html>

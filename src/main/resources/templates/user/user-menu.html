@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>User Menu</title>
@@ -9,11 +9,15 @@
 <div class="header">
     User menu
 </div>
-<a href="/user/showCalculateForm">To be deleted</a>
-<br><br>
-<a href="/user/showEnterHours">Enter Hours</a>
-<br><br>
-<a href="/user/showViewHours">View Hours</a>
+
+<div class="middle">
+    <ul>
+        <li><a href="/user/showCalculateForm">To be deleted</a></li>
+        <li><a href="/user/showEnterHours">Enter Hours</a></li>
+        <li><a href="/user/showViewHours">View Hours</a></li>
+    </ul>
+</div>
+
 <div class="footer"><br>© Katarzyna Matuszewska, Jakub Turek 2019<br></div>
 </body>
 </html>

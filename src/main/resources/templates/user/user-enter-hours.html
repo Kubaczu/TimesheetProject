@@ -9,6 +9,12 @@
 <div class="header">
     Form to enter hours
 </div>
+
+<div class="back-to-menu">
+    <li><a href="/user/user-menu.html" th:href="@{/user/showUserMenu}">User menu</a></li>
+</div>
+
+<div class="middle">
 Pokazuje formularz do wpisywania godzin usera
 <form action="addHours" method="post">
     <input type="date" name="date">
@@ -17,6 +23,8 @@ Pokazuje formularz do wpisywania godzin usera
     <br><br>
     <div th:text="${message}"></div>
 </form>
+</div>
+
 <div class="footer"><br>© Katarzyna Matuszewska, Jakub Turek 2019<br></div>
 </body>
 </html>

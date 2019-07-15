@@ -1,6 +1,7 @@
 package com.project.timesheet.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnNotWebApplication;
 import org.springframework.stereotype.Service;
 
 import java.time.DayOfWeek;

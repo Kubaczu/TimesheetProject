@@ -9,6 +9,11 @@
 <div class="header">
     Use calculation form
 </div>
+<div class="back-to-menu">
+    <li><a href="/user/user-menu.html" th:href="@{/user/showUserMenu}">User menu</a></li>
+</div>
+
+<div class="middle">
 
 <form method="post" action=showUserCalculateSummary th:object="${user}">
     Hours:
@@ -16,6 +21,7 @@
     <br><br>
     <input type="submit" value="Calculate"/>
 </form>
+</div>
 <div class="footer"><br>© Katarzyna Matuszewska, Jakub Turek 2019<br></div>
 </body>
 </html>

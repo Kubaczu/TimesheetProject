@@ -9,10 +9,11 @@
 <div class="header">
 Welcome! Please log in
 </div>
-<h1>Please choose account type:</h1>
+<h1 class="h1class">Please choose account type:</h1>
 
-<br><br>
-<!--<a href="user/showUserMenu"> User Account</a>-->
+<div class="middle">
+
+<div class="main-form">
 <form action="user/showUserMenu" method="post" th:align=".form">
     <select name="id">
         <option th:each="userEntity : ${usersList}"
@@ -23,8 +24,11 @@ Welcome! Please log in
     <br>
     <button>Log in</button>
 </form>
+</div>
 <br><br>
 <a href="admin/showAdminMenu" th:align="center"> Admin Account</a>
+</div>
+
 <div class="footer"><br>© Katarzyna Matuszewska, Jakub Turek 2019<br></div>
 </body>
 </html>

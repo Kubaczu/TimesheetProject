@@ -39,6 +39,9 @@ public class AdminController {
         return "/admin/admin-menu";
     }
 
+    //show main menu
+
+
     //  Show hours
     @RequestMapping("/showHoursViewMenu")
     public String showHoursViewMenu(Model model) {

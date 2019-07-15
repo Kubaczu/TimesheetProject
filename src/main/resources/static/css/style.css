@@ -1,6 +1,6 @@
 html, body {
-    margin:0;
-    padding:0;
+    margin:0px;
+    padding:0px;
     height:100%;
     background-color: #ccffe6;
 }
@@ -9,14 +9,26 @@ html, body {
     position:relative;
 }
 .header {
+    margin:0px;
     background:#66ff99;
     padding:30px;
     font-family: Calibri;
     font-variant: small-caps;
 }
+.back-to-menu {
+    background:#66ff99;
+    padding:0px;
+    font-family: Calibri;
+    font-variant: small-caps;
+    align: right;
+    list-style: none;
+    margin: fill;
+}
+
 .middle {
-    padding:10px;
-    padding-bottom:60px;	/* Wysokość nagłówka */
+    padding: 20px;
+    padding-bottom:60px; /* Wysokość nagłówka */
+    font-family: Calibri;
 }
 .footer {
     position:absolute;
@@ -25,34 +37,42 @@ html, body {
     height:60px;		/* Wysokość nagłówka */
     background: #66ff99;
     text-align: center;
+    font-family: Calibri;
+    font-variant: small-caps;
 }
 i {
-    text-decoration-color: #aee299;
+    text-decoration-color: #555;
+    font-family: Calibri;
 }
 
-h1 {
-    color: darkgreen;
-    text-align: center;
-    font-family: "Arial Black";
-    font-style: inherit;
+.h1class {
+    padding: 20px;
+    padding-bottom:60px;
+    text-align: left;
+    color: grey;
+    font-family: Calibri;
+    font-size: large;
 }
+
 ul {
-    list-style-type: none;
+    list-style: none;
+    display: block;
     margin: 0;
     padding: 0;
     width: 200px;
     background-color: #f1f1f1;
     alignment: center;
-    list-style-type: none;
-    display: inline-block;
+    font-family: Calibri;
 }
 
 li a {
     display: block;
+    list-style: none;
     color: #000;
     padding: 8px 16px;
     text-decoration: none;
     alignment: center;
+    font-family: Calibri;
 }
 
 /* Change the link color on hover */
@@ -65,6 +85,15 @@ a {
     color: #0033cc;
     text-align: center;
     size: 20px;
-    font-family: "Courier New";
+    font-family: "Calibri";
+}
+
+a href {
+    color: #0033cc;
+    text-align: center;
+    size: 20px;
+    font-family: "Calibri";
+}
+.main-form {
 
 }
