@@ -1,11 +1,17 @@
 package com.project.timesheet.User;
 
 import com.project.timesheet.Entities.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Controller
@@ -74,20 +80,35 @@ public class UserController {
     }
 
     @RequestMapping("/showViewHours") // Pokazuje podsumowanie godzin usera
-    public String showViewHours(
-            Model model) {
-        System.out.println("inside method: showViewHours()");
-        model.addAttribute("user", new User());
+    public String showHours(Model model) {
+
+        model.addAttribute("userEntries", timeEntryRepository.showUserHours(loggedUserId));
+        model.addAttribute("dateFrame", new TimeFrame());
+
+
+        System.out.println(loggedUserId);
+        return "/user/user-view-hours";
+    }
+
+    @RequestMapping("/showHoursByDate")
+    public String showHoursByDate(
+            @ModelAttribute("dateFrame") TimeFrame timeFrame,
+            Model model
+            ){
+        System.out.println("dateFrom: " + timeFrame.getDateFrom() + " dateTo: " + timeFrame.getDateTo());
+        model.addAttribute("userEntries", timeEntryRepository.showUserHoursByDate(loggedUserId, timeFrame.getDateFrom(), timeFrame.getDateTo()));
         return "/user/user-view-hours";
     }
 
 
-//    @Getter
-    ////    @Setter
-    ////    @NoArgsConstructor
-    ////    private class TimeEntryForm {
-    ////        @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    ////        private LocalDate date;
-    //
-    //    //    }
+
+
+        @Getter
+        @Setter
+        @NoArgsConstructor
+        public class TimeFrame {
+                String dateFrom;
+                String dateTo;
+
+            }
 }

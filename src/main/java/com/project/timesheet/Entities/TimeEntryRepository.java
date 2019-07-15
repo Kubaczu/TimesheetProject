@@ -20,9 +20,19 @@ public interface TimeEntryRepository extends JpaRepository<TimeEntry, Integer> {
             @Param("date") LocalDate date,
             @Param("hours") int hours);
 
-    @Query(value = "SELECT * FROM time_entry te WHERE te.user_ID like (:userID)", // TODO: skończyć
+    @Query(value = "SELECT * FROM time_entry te WHERE te.user_ID LIKE (:userID) ORDER BY te.date ASC", // TODO: skończyć
             nativeQuery = true)
     List<TimeEntry> showUserHours(
             @Param("userID") int userID);
 
+    @Query(value = "SELECT * FROM time_entry te WHERE (te.user_ID = :loggedUserId) AND (te.date BETWEEN :dateFrom AND :dateTo) ORDER BY te.date ASC ", // TODO: skończyć
+            nativeQuery = true)
+    List<TimeEntry> showUserHoursByDate(@Param("loggedUserId") int loggedUserId,
+                                        @Param("dateFrom") String dateFrom,
+                                        @Param("dateTo") String dateTo);
+
+    @Query(value = "SELECT * FROM time_entry te WHERE te.date BETWEEN :dateFrom AND :dateTo ORDER BY te.date ASC ", // TODO: skończyć
+            nativeQuery = true)
+    List<TimeEntry> showHoursByDate(@Param("dateFrom") String dateFrom,
+                                    @Param("dateTo") String dateTo);
 }

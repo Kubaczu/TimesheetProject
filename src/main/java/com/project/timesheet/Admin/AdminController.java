@@ -3,16 +3,14 @@ package com.project.timesheet.Admin;
 import com.project.timesheet.Entities.TimeEntry;
 import com.project.timesheet.Entities.TimeEntryRepository;
 import com.project.timesheet.Entities.TimeEntryService;
-import com.project.timesheet.User.User;
-import com.project.timesheet.User.UserDepartment;
-import com.project.timesheet.User.UserRepository;
-import com.project.timesheet.User.UserService;
+import com.project.timesheet.User.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.DayOfWeek;
 import java.util.ArrayList;
@@ -49,17 +47,33 @@ public class AdminController {
         return "/admin/admin-hours-view-menu";
     }
 
+    @RequestMapping("/showHoursAll")
+    public String showHoursAll(Model model) {
+        model.addAttribute("user", new User());
+        model.addAttribute("usersList", userRepository.findAll());
+        model.addAttribute("userEntries", timeEntryRepository.findAll());
+        return "/admin/admin-hours-view-menu";
+    }
+
     @RequestMapping("/showHoursByUser")
     public String showHoursByUser(
             @ModelAttribute("user") User user, Model model){
         List<Integer> usersId = new ArrayList<>();
         usersId.add(user.getId());
-//        model.addAttribute("userEntries", timeEntryRepository.findAll());
         List<TimeEntry> userTimeEntries = timeEntryRepository.showUserHours(user.getId());
-        System.out.println("After asigning a list");
         model.addAttribute("userEntries", userTimeEntries);
-        System.out.println(user.getId());
-        return "/admin/admin-hours-view-user";
+        model.addAttribute("usersList", userRepository.findAll());
+        return "/admin/admin-hours-view-menu";
+    }
+
+    @RequestMapping("/showHoursByDate")
+    public String showHoursByDate(
+            @ModelAttribute("dateFrame") UserController.TimeFrame timeFrame,
+            Model model
+    ){
+        model.addAttribute("usersList", userRepository.findAll());
+        model.addAttribute("userEntries", timeEntryRepository.showHoursByDate(timeFrame.getDateFrom(), timeFrame.getDateTo()));
+        return "/admin/admin-hours-view-menu";
     }
 
 

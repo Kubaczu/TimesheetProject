@@ -10,6 +10,22 @@
 <div class="header">
     Please choose user to view hours:
 </div>
+<table border="1px">
+    <tr>
+        <th>Id</th>
+        <th>userId</th>
+        <th>date</th>
+        <th>hours</th>
+    </tr>
+    <tr th:each="userEntity : ${userEntries}">
+        <td th:text="${userEntity.id}"></td>
+        <td th:text="${userEntity.user.id}"></td>
+        <td th:text="${userEntity.date}"></td>
+        <td th:text="${userEntity.hours}"></td>
+    </tr>
+</table>
+<form action="showHoursAll"><button>Show All</button></form>
+<br><br>
 View hours by user: "dropdown menu"
 <br>
 <form action="showHoursByUser" method="post" >
@@ -23,7 +39,17 @@ View hours by user: "dropdown menu"
     <button>Show Hours</button>
 </form>
 <br><br>
-View hours by week: "dropdown menu"
+<form action="showHoursByDate" method="post">
+    Select by date
+    from:
+    <br>
+    <input type="date" name="dateFrom">
+    <br>
+    to:
+    <br>
+    <input type="date" name="dateTo">
+    <button>Show hours</button>
+</form>
 <div class="footer"><br>© Katarzyna Matuszewska, Jakub Turek 2019<br></div>
 </body>
 </html>
