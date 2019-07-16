@@ -24,4 +24,8 @@ public class TimeEntryService {
         timeEntry.setUser(userRepository.findById(userId).get());
         timeEntryRepository.save(timeEntry);
     }
+
+    public void editHour(TimeEntry timeEntry) {
+        timeEntryRepository.save(timeEntry);
+    }
 }

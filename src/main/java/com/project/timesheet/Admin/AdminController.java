@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 @Controller
@@ -33,6 +34,8 @@ public class AdminController {
 
     @Autowired
     TimeEntryRepository timeEntryRepository;
+
+    TimeEntry entryToEdit = new TimeEntry();
 
     //  Main Admin Menu
     @RequestMapping("/showAdminMenu")
@@ -91,10 +94,26 @@ public class AdminController {
     }
 
     @GetMapping("/editHours")
-    public String editHours(@RequestParam Long id, Model model) {
+    public String editHours(@RequestParam Integer id, Model model) {
         System.out.println("Entry id:" + id);
+        List<Integer> listOfId = new ArrayList<>();
+        listOfId.add(id);
+        List<TimeEntry> timeEntryList = timeEntryRepository.findAllById(listOfId);
+        model.addAttribute("entryToChange", timeEntryList.get(0) );
+        model.addAttribute("entryNew", new TimeEntry() );
+        entryToEdit.setUser( timeEntryList.get(0).getUser());
+        entryToEdit.setId(timeEntryList.get(0).getId());
         // TODO na podstawie entry id trzeba z bazy załadować aktualne dane i przygotować model do edycji
         return "/admin/admin-hours-edit-entry";
+    }
+
+    @RequestMapping("/saveHours")
+    public String saveHours(@ModelAttribute ("entryNew") TimeEntry entryNew ){
+        entryNew.setUser(entryToEdit.getUser());
+        entryNew.setId(entryToEdit.getId());
+        System.out.println(entryNew.getDate() + " " +entryNew.getHours() + " " + entryNew.getUser() + " " + entryNew.getId());
+        timeEntryService.editHour(entryNew);
+        return "/admin/admin-menu";
     }
 
     //  Edit Users

@@ -5,9 +5,10 @@
     <title>Edit Hour Entry</title>
 </head>
 <body>
-<!--Editing-->
-<!--<div th:text="${entryToEdit.date} + ' ' + ${entryToEdit.hours}"></div>-->
-<form action="editHours" method="post">
+Editing:
+<br>
+<div th:text="'User: ' + ${entryToChange.user.firstName} + ' ' + ${entryToChange.user.lastName} + ', Date: ' + ${entryToChange.date} + ' Hours: ' + ${entryToChange.hours}"></div>
+<form action="saveHours" method="post">
     <input type="date" name="date">
     <input placeholder="hours" type="text" name="hours">
     <button>Save</button>
