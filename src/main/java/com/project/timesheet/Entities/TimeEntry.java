@@ -1,6 +1,5 @@
 package com.project.timesheet.Entities;
 
-import com.project.timesheet.BaseEntity;
 import com.project.timesheet.User.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,7 +22,6 @@ public class TimeEntry extends BaseEntity {
     @JoinColumn(name = "user_ID")
     private User user;
 
-//
 //    private int userId;
 
     private String date;

@@ -1,4 +1,4 @@
-package com.project.timesheet;
+package com.project.timesheet.Entities;
 
 import lombok.Getter;
 import lombok.Setter;

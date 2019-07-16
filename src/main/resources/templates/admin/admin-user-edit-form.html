@@ -25,7 +25,7 @@
     <input placeholder="rate" type="number" name="rate">
     <!--    <input placeholder="stan magaz" type="number" name="stockAmount">-->
     <select name="userDepartment">
-        <option value="" th:text="Select"></option>
+        <option value="" th:text="Department"></option>
         <option th:each="ud :${departmentTypes}" th:text="${ud}" th:value="${ud}"></option>
     </select>
     <button>Save</button>
@@ -37,16 +37,17 @@
 <h4>Users List:</h4>
 <table border="1px">
     <tr>
-        <th>Id</th>
-        <th>first Name</th>
-        <th>last Name</th>
-        <th>rate</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Rate</th>
+        <th>Department</th>
     </tr>
     <tr th:each="userEntity : ${usersList}">
-        <td th:text="${userEntity.id}"></td>
+<!--        <td th:text="${userEntity.id}"></td>-->
         <td th:text="${userEntity.firstName}"></td>
         <td th:text="${userEntity.lastName}"></td>
         <td th:text="${userEntity.rate}"></td>
+        <td th:text="${userEntity.userDepartment}"></td>
     </tr>
 </table>
 <br>
@@ -57,12 +58,16 @@
 <br>
 <form action="editUser" method="post">
 <select name="id" >
-    <option th:each="userEntity2 : ${usersList}" th:text="${userEntity2.id}" th:value="${userEntity2.id}"><option/>
+    <option th:each="userEntity2 : ${usersList}" th:text="${userEntity2.firstName} + ' ' + ${userEntity2.LastName} " th:value="${userEntity2.id}"><option/>
 </select>
     <br>
     <input placeholder="first name" type="text" name="firstName">
     <input placeholder="last name" type="text" name="lastName">
     <input placeholder="rate" type="number" name="rate">
+    <select name="userDepartment">
+        <option value="" th:text="Department"></option>
+        <option th:each="ud :${departmentTypes}" th:text="${ud}" th:value="${ud}"></option>
+    </select>
     <button>Edit</button>
 </form>
 </div>

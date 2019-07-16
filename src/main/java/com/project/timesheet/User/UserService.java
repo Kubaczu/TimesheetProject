@@ -19,7 +19,8 @@ public class UserService {
     }
 
     public void editUser(User user) {
-        userRepository.deleteById(user.getId());
+//        user.setUserDepartment(userRepository.findById(user.getId()).get().getUserDepartment());
         userRepository.save(user);
     }
+
 }

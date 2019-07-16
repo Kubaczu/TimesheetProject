@@ -29,8 +29,10 @@ public class UserController {
     @RequestMapping("/showUserMenu") // Pokazuje główne menu usera
     public String showUserMenu(
             @ModelAttribute("loggedUser") User user) {
-        System.out.println("Logged user ID is : " + user.getId());
-        loggedUserId = user.getId();
+        if (loggedUserId == 0) {
+            loggedUserId = user.getId();
+        }
+        System.out.println("Logged user ID is : " + loggedUserId);
         System.out.println("inside method: showUserMenu()");
         return "/user/user-menu";
     }
@@ -94,21 +96,18 @@ public class UserController {
     public String showHoursByDate(
             @ModelAttribute("dateFrame") TimeFrame timeFrame,
             Model model
-            ){
+    ) {
         System.out.println("dateFrom: " + timeFrame.getDateFrom() + " dateTo: " + timeFrame.getDateTo());
         model.addAttribute("userEntries", timeEntryRepository.showUserHoursByDate(loggedUserId, timeFrame.getDateFrom(), timeFrame.getDateTo()));
         return "/user/user-view-hours";
     }
 
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    public class TimeFrame {
+        String dateFrom;
+        String dateTo;
 
-
-
-        @Getter
-        @Setter
-        @NoArgsConstructor
-        public class TimeFrame {
-                String dateFrom;
-                String dateTo;
-
-            }
+    }
 }

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Hour Entry</title>
+</head>
+<body>
+<!--Editing-->
+<!--<div th:text="${entryToEdit.date} + ' ' + ${entryToEdit.hours}"></div>-->
+<form action="editHours" method="post">
+    <input type="date" name="date">
+    <input placeholder="hours" type="text" name="hours">
+    <button>Save</button>
+    <br><br>
+</form>
+</body>
+</html>

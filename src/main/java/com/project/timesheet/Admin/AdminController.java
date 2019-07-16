@@ -4,6 +4,9 @@ import com.project.timesheet.Entities.TimeEntry;
 import com.project.timesheet.Entities.TimeEntryRepository;
 import com.project.timesheet.Entities.TimeEntryService;
 import com.project.timesheet.User.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -83,9 +86,17 @@ public class AdminController {
     //  Edit Hours
     @RequestMapping("/showHoursEditMenu")
     public String showHoursEditMenu(Model model) {
-        model.addAttribute("user", new User());
-        model.addAttribute("daysOfWeek", DayOfWeek.values());
+        model.addAttribute("entryToEdit", new TimeEntry());
+        model.addAttribute("userEntries", timeEntryRepository.findAll());
         return "/admin/admin-hours-edit-menu";
+    }
+
+    @RequestMapping("/editHours")
+    public String editHours(
+            @ModelAttribute ("entryToEdit") TimeEntry timeEntry,
+            Model model) {
+        System.out.println("TimeEntry: " + timeEntry.getHours() + timeEntry.getDate());
+        return "/admin/admin-hours-edit-entry";
     }
 
     //  Edit Users
@@ -119,4 +130,16 @@ public class AdminController {
         model.addAttribute("user", new User());
         return "/admin/admin-salary-calculation-menu";
     }
+
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    public class EntryToEdit{
+        int oldEntryId;
+        TimeEntry oldEntry;
+        TimeEntry newEntry;
+        private String date;
+        private int hours;
+    }
+
 }

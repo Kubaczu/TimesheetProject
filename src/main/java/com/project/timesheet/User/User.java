@@ -1,6 +1,6 @@
 package com.project.timesheet.User;
 
-import com.project.timesheet.BaseEntity;
+import com.project.timesheet.Entities.BaseEntity;
 import com.project.timesheet.Entities.TimeEntry;
 import lombok.*;
 
