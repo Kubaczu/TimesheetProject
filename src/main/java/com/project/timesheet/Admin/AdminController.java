@@ -10,12 +10,11 @@ import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -91,11 +90,10 @@ public class AdminController {
         return "/admin/admin-hours-edit-menu";
     }
 
-    @RequestMapping("/editHours")
-    public String editHours(
-            @ModelAttribute ("entryToEdit") TimeEntry timeEntry,
-            Model model) {
-        System.out.println("TimeEntry: " + timeEntry.getHours() + timeEntry.getDate());
+    @GetMapping("/editHours")
+    public String editHours(@RequestParam Long id, Model model) {
+        System.out.println("Entry id:" + id);
+        // TODO na podstawie entry id trzeba z bazy załadować aktualne dane i przygotować model do edycji
         return "/admin/admin-hours-edit-entry";
     }
 

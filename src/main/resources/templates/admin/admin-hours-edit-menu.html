@@ -26,13 +26,11 @@
                 <th>edit</th>
             </tr>
             <tr th:each="userEntity : ${userEntries}">
-               <form action="editHours">
-                    <td th:text="${userEntity.id}"  th:name="id"></td>
-                    <td th:text="${userEntity.user.id}" th:name="user_ID"></td>
-                    <td th:text="${userEntity.date}" th:name="date"></td>
-                    <td th:text="${userEntity.hours}"  th:name="hours"></td>
-                    <td><button>Edit</button></td>
-               </form>
+                <td th:text="${userEntity.id}"  th:name="id"></td>
+                <td th:text="${userEntity.user.id}" th:name="user_ID"></td>
+                <td th:text="${userEntity.date}" th:name="date"></td>
+                <td th:text="${userEntity.hours}"  th:name="hours"></td>
+                <td><a th:href="@{/admin/editHours(id=${userEntity.id})}" >Edit</a></td>
             </tr>
         </table>
     </div>
