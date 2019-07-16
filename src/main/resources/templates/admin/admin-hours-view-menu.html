@@ -16,49 +16,52 @@
 </div>
 
 <div class="middle">
-<div style="overflow-x:auto">
-<table border="1px">
-    <tr>
-        <th>Id</th>
-        <th>userId</th>
-        <th>date</th>
-        <th>hours</th>
-    </tr>
-    <tr th:each="userEntity : ${userEntries}">
-        <td th:text="${userEntity.id}"></td>
-        <td th:text="${userEntity.user.id}"></td>
-        <td th:text="${userEntity.date}"></td>
-        <td th:text="${userEntity.hours}"></td>
-    </tr>
-</table>
-</div>
+<h1 class="h1class"> Select user</h1>
+    <table class="greyGridTable">
+        <tr>
+            <th>Id</th>
+            <th>userId</th>
+            <th>date</th>
+            <th>hours</th>
+        </tr>
+        <tr th:each="userEntity : ${userEntries}">
+            <td th:text="${userEntity.id}"></td>
+            <td th:text="${userEntity.user.id}"></td>
+            <td th:text="${userEntity.date}"></td>
+            <td th:text="${userEntity.hours}"></td>
+        </tr>
+    </table>
 
-<form action="showHoursAll"><button>Show All</button></form>
-<br><br>
-View hours by user: "dropdown menu"
-<br>
-<form action="showHoursByUser" method="post" >
-    <select name="id">
-        <option th:each="userEntity : ${usersList}"
-                th:text="${userEntity.id} + ' ' + ${userEntity.firstName} + ' ' + ${userEntity.lastName}"
-                th:value="${userEntity.id}">
-        <option/>
-    </select>
+
+    <form action="showHoursAll" class="saveHour">
+        <button>Show All</button>
+    </form>
+
+    <br><br>
+    <h1 class="h1class">View hours by user: "dropdown menu"</h1>
     <br>
-    <button>Show Hours</button>
-</form>
-<br><br>
-<form action="showHoursByDate" method="post">
-    Select by date
-    from:
-    <br>
-    <input type="date" name="dateFrom">
-    <br>
-    to:
-    <br>
-    <input type="date" name="dateTo">
-    <button>Show hours</button>
-</form>
+    <form action="showHoursByUser" method="post" class="saveHour">
+        <select name="id">
+            <option th:each="userEntity : ${usersList}"
+                    th:text="${userEntity.id} + ' ' + ${userEntity.firstName} + ' ' + ${userEntity.lastName}"
+                    th:value="${userEntity.id}">
+            <option/>
+        </select>
+        <br>
+        <button>Show Hours</button>
+    </form>
+    <br><br>
+    <form action="showHoursByDate" method="post" class="saveHour">
+        Select by date
+        from:
+        <br>
+        <input type="date" name="dateFrom">
+        <br>
+        to:
+        <br>
+        <input type="date" name="dateTo"><br>
+        <button>Show hours</button>
+    </form>
 </div>
 
 <div class="footer"><br>© Katarzyna Matuszewska, Jakub Turek 2019<br></div>

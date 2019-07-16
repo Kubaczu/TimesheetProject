@@ -3,16 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <title>Edit Hour Entry</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
 </head>
 <body>
-Editing:
-<br>
-<div th:text="'User: ' + ${entryToChange.user.firstName} + ' ' + ${entryToChange.user.lastName} + ', Date: ' + ${entryToChange.date} + ' Hours: ' + ${entryToChange.hours}"></div>
-<form action="saveHours" method="post">
-    <input type="date" name="date">
-    <input placeholder="hours" type="text" name="hours">
-    <button>Save</button>
-    <br><br>
-</form>
+<div class="header">
+    Edit hour entry
+</div>
+
+<div class="back-to-menu">
+    <li><a href="../admin-menu.html" th:href="@{/admin/showAdminMenu}">Admin menu</a></li>
+</div>
+
+<div class="middle">
+    <h1 class="h1class">Editing:</h1>
+    <br>
+    <div th:text="'User: ' + ${entryToChange.user.firstName} + ' ' + ${entryToChange.user.lastName} + ', Date: ' + ${entryToChange.date} + ' Hours: ' + ${entryToChange.hours}"></div>
+    <form action="saveHours" method="post" class="saveHour">
+        <input type="date" name="date"><br>
+        <input placeholder="hours" type="text" name="hours">
+        <br>
+        <button>Save</button>
+        <br><br>
+    </form>
+</div>
+
+<div class="footer"><br>© Katarzyna Matuszewska, Jakub Turek 2019<br></div>
+
 </body>
 </html>

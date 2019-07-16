@@ -16,60 +16,62 @@
 
 
 <div class="middle">
-<div>
-<h1 class="h1class">Add new user:</h1></div>
-<div>
-<form action="addUser" method="post">
-    <input placeholder="first name" type="text" name="firstName">
-    <input placeholder="last name" type="text" name="lastName">
-    <input placeholder="rate" type="number" name="rate">
-    <!--    <input placeholder="stan magaz" type="number" name="stockAmount">-->
-    <select name="userDepartment">
-        <option value="" th:text="Department"></option>
-        <option th:each="ud :${departmentTypes}" th:text="${ud}" th:value="${ud}"></option>
-    </select>
-    <button>Save</button>
-</form>
-</div>
-<br>
-
-
-<h4>Users List:</h4>
-<table border="1px">
-    <tr>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Rate</th>
-        <th>Department</th>
-    </tr>
-    <tr th:each="userEntity : ${usersList}">
-<!--        <td th:text="${userEntity.id}"></td>-->
-        <td th:text="${userEntity.firstName}"></td>
-        <td th:text="${userEntity.lastName}"></td>
-        <td th:text="${userEntity.rate}"></td>
-        <td th:text="${userEntity.userDepartment}"></td>
-    </tr>
-</table>
-<br>
-
-
-
-<h4>Please choose user to edit:</h4>
-<br>
-<form action="editUser" method="post">
-<select name="id" >
-    <option th:each="userEntity2 : ${usersList}" th:text="${userEntity2.firstName} + ' ' + ${userEntity2.LastName} " th:value="${userEntity2.id}"><option/>
-</select>
+    <div>
+        <h1 class="h1class">Add new user:</h1></div>
+    <div>
+        <form action="addUser" method="post">
+            <input placeholder="first name" type="text" name="firstName">
+            <input placeholder="last name" type="text" name="lastName">
+            <input placeholder="rate" type="number" name="rate">
+            <!--    <input placeholder="stan magaz" type="number" name="stockAmount">-->
+            <select name="userDepartment">
+                <option value="" th:text="Department"></option>
+                <option th:each="ud :${departmentTypes}" th:text="${ud}" th:value="${ud}"></option>
+            </select>
+            <button>Save</button>
+        </form>
+    </div>
     <br>
-    <input placeholder="first name" type="text" name="firstName">
-    <input placeholder="last name" type="text" name="lastName">
-    <input placeholder="rate" type="number" name="rate">
-    <select name="userDepartment">
-        <option value="" th:text="Department"></option>
-        <option th:each="ud :${departmentTypes}" th:text="${ud}" th:value="${ud}"></option>
-    </select>
-    <button>Edit</button>
-</form>
+
+
+    <h1 class="h1class">Users List:</h1>
+    <table class="greyGridTable">
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Rate</th>
+            <th>Department</th>
+        </tr>
+        <tr th:each="userEntity : ${usersList}">
+            <!--        <td th:text="${userEntity.id}"></td>-->
+            <td th:text="${userEntity.firstName}"></td>
+            <td th:text="${userEntity.lastName}"></td>
+            <td th:text="${userEntity.rate}"></td>
+            <td th:text="${userEntity.userDepartment}"></td>
+        </tr>
+    </table>
+    <br>
+
+
+    <h1 class="h1class">Please choose user to edit:</h1>
+    <br>
+    <form action="editUser" method="post">
+        <select name="id">
+            <option th:each="userEntity2 : ${usersList}"
+                    th:text="${userEntity2.firstName} + ' ' + ${userEntity2.LastName} " th:value="${userEntity2.id}">
+            <option/>
+        </select>
+        <br>
+        <input placeholder="first name" type="text" name="firstName">
+        <input placeholder="last name" type="text" name="lastName">
+        <input placeholder="rate" type="number" name="rate">
+        <select name="userDepartment">
+            <option value="" th:text="Department"></option>
+            <option th:each="ud :${departmentTypes}" th:text="${ud}" th:value="${ud}"></option>
+        </select>
+        <button>Edit</button>
+    </form>
+
 </div>
 
 <div class="footer"><br>© Katarzyna Matuszewska, Jakub Turek 2019<br></div>

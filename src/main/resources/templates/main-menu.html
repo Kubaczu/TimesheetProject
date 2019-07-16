@@ -14,13 +14,15 @@ Welcome! Please log in
 <div class="middle">
 
 <div class="main-form">
-<form action="user/showUserMenu" method="post" th:align=".form">
+<form action="user/showUserMenu" method="post" th:align=".form" class="main-form">
+
     <select name="id">
         <option th:each="userEntity : ${usersList}"
                 th:text="${userEntity.id} + ' ' + ${userEntity.firstName} + ' ' + ${userEntity.lastName}"
                 th:value="${userEntity.id}">
         <option/>
     </select>
+
     <br>
     <button>Log in</button>
 </form>
