@@ -174,7 +174,7 @@ public class AdminController {
             @ModelAttribute("dateFrame") TimeFrame timeFrame,
             Model model) {
         System.out.println(timeFrame.getUserId() + " " + timeFrame.getDateFrom() + " " + timeFrame.getDateTo());
-        model.addAttribute("userEntries", timeEntryRepository.showUserHoursByDate(timeFrame.getUserId(), timeFrame.getDateFrom(), timeFrame.getDateTo()));
+        model.addAttribute("calculatedSalary", userService.calculateSalary(timeEntryRepository.showUserHoursByDate(timeFrame.getUserId(), timeFrame.getDateFrom(), timeFrame.getDateTo())));
         return "/admin/admin-salary-calculation-form";
     }
 
