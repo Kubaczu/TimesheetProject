@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Result of the calculation</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<div class="header">
+    Edit hour entry
+</div>
+
+<div class="back-to-menu">
+    <li><a href="../admin-menu.html" th:href="@{/admin/showAdminMenu}">Admin menu</a></li>
+</div>
+
+<div class="middle">
+    <div style="overflow-x:auto">
+        <table class="greyGridTable">
+            <tr>
+                <th>Id</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Hours</th>
+                <th>Payment</th>
+            </tr>
+            <tr th:each="user : ${calculatedSalary}">
+                <td th:text="${user.id}"></td>
+                <td th:text="${user.firstName}"></td>
+                <td th:text="${user.lastName}"></td>
+                <td th:text="${user.tempHours}"></td>
+                <td th:text="${user.salary}"></td>
+            </tr>
+        </table>
+    </div>
+</div>
+</body>
+</html>

@@ -16,10 +16,49 @@
 
 
 <div class="middle">
-    <h1 class="h1class">Please choose user to calculate his salary or press button to calculate salary for all users
-        (Optionaly: choose users to calculate theirs salaries)</h1>
+    <h1 class="h1class">
+        Please press 'Calculate All' button to calculate salaries for all users or
+        <br>select user and press 'Calculate One' to calculate his/her salary
+        <br>for selected period of time.
+    </h1>
 </div>
+<h3>Calculate salaries for all users for selected period of time:</h3>
+<br>
+<form action="showSalaryCalculationFormByTime" method="post" class="saveHour">
+    Select by date
+    from:
+    <br>
+    <input type="date" name="dateFrom">
+    <br>
+    to:
+    <br>
+    <input type="date" name="dateTo"><br>
+    <button>Calculate All</button>
+</form>
 
+<hr>
+<br>
+<h3>Calculate salary for single user for selected period of time:</h3>
+<form action="showSalaryCalculationFormByUser" method="post" class="saveHour">
+    Select user
+    <br>
+    <select name="userId">
+        <option th:each="userEntity : ${usersList}"
+                th:text="${userEntity.firstName} + ' ' + ${userEntity.lastName} " th:value="${userEntity.id}">
+        <option/>
+    </select>
+    <br>
+    from:
+    <br>
+    <input type="date" name="dateFrom">
+    <br>
+    to:
+    <br>
+    <input type="date" name="dateTo"><br>
+    <button>Calculate One</button>
+    <br><br>
+</form>
+<br><br>
 <div class="footer"><br>© Katarzyna Matuszewska, Jakub Turek 2019<br></div>
 </body>
 </html>

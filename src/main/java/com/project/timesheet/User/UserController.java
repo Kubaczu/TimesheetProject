@@ -102,12 +102,5 @@ public class UserController {
         return "/user/user-view-hours";
     }
 
-    @Getter
-    @Setter
-    @NoArgsConstructor
-    public class TimeFrame {
-        String dateFrom;
-        String dateTo;
 
-    }
 }

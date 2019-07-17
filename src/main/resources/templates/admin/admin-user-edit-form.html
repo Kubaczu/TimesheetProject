@@ -23,7 +23,6 @@
             <input placeholder="first name" type="text" name="firstName">
             <input placeholder="last name" type="text" name="lastName">
             <input placeholder="rate" type="number" name="rate">
-            <!--    <input placeholder="stan magaz" type="number" name="stockAmount">-->
             <select name="userDepartment">
                 <option value="" th:text="Department"></option>
                 <option th:each="ud :${departmentTypes}" th:text="${ud}" th:value="${ud}"></option>
@@ -32,8 +31,7 @@
         </form>
     </div>
     <br>
-
-
+    <hr>
     <h1 class="h1class">Users List:</h1>
     <table class="greyGridTable">
         <tr>
@@ -43,7 +41,6 @@
             <th>Department</th>
         </tr>
         <tr th:each="userEntity : ${usersList}">
-            <!--        <td th:text="${userEntity.id}"></td>-->
             <td th:text="${userEntity.firstName}"></td>
             <td th:text="${userEntity.lastName}"></td>
             <td th:text="${userEntity.rate}"></td>
@@ -51,10 +48,9 @@
         </tr>
     </table>
     <br>
-
+    <hr>
 
     <h1 class="h1class">Please choose user to edit:</h1>
-    <br>
     <form action="editUser" method="post">
         <select name="id">
             <option th:each="userEntity2 : ${usersList}"
