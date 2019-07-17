@@ -17,21 +17,26 @@
 
 <div class="middle">
     <div>
-        <h1 class="h1class">Add new user:</h1></div>
+        <h1 class="h1class">Add new user:</h1>
+    </div>
     <div>
-        <form action="addUser" method="post">
-            <input placeholder="first name" type="text" name="firstName">
-            <input placeholder="last name" type="text" name="lastName">
-            <input placeholder="rate" type="number" name="rate">
-            <select name="userDepartment">
+
+        <form action="addUser" method="post" class="saveHour">
+            <input placeholder="first name" type="text" name="firstName"><br>
+            <input placeholder="last name" type="text" name="lastName"><br>
+            <input placeholder="rate" type="number" name="rate"><br>
+            <select name="userDepartment"><br>
                 <option value="" th:text="Department"></option>
                 <option th:each="ud :${departmentTypes}" th:text="${ud}" th:value="${ud}"></option>
-            </select>
+            </select><br>
             <button>Save</button>
         </form>
     </div>
+
     <br>
     <hr>
+    <br>
+
     <h1 class="h1class">Users List:</h1>
     <table class="greyGridTable">
         <tr>
@@ -47,27 +52,30 @@
             <td th:text="${userEntity.userDepartment}"></td>
         </tr>
     </table>
+
     <br>
     <hr>
+    <br>
 
     <h1 class="h1class">Please choose user to edit:</h1>
-    <form action="editUser" method="post">
+    <form action="editUser" method="post" class="saveHour">
         <select name="id">
             <option th:each="userEntity2 : ${usersList}"
                     th:text="${userEntity2.firstName} + ' ' + ${userEntity2.LastName} " th:value="${userEntity2.id}">
             <option/>
         </select>
         <br>
-        <input placeholder="first name" type="text" name="firstName">
-        <input placeholder="last name" type="text" name="lastName">
-        <input placeholder="rate" type="number" name="rate">
-        <select name="userDepartment">
+        <input placeholder="first name" type="text" name="firstName"><br>
+        <input placeholder="last name" type="text" name="lastName"><br>
+        <input placeholder="rate" type="number" name="rate"><br>
+        <select name="userDepartment"><br>
             <option value="" th:text="Department"></option>
             <option th:each="ud :${departmentTypes}" th:text="${ud}" th:value="${ud}"></option>
         </select>
+
+        <br>
         <button>Edit</button>
     </form>
-
 </div>
 
 <div class="footer"><br>© Katarzyna Matuszewska, Jakub Turek 2019<br></div>

@@ -16,13 +16,13 @@
 </div>
 
 <div class="middle">
-<h1 class="h1class"> Select user</h1>
+    <h1 class="h1class"> Select user</h1>
     <table class="greyGridTable">
         <tr>
-            <th>Id</th>
-            <th>userId</th>
-            <th>date</th>
-            <th>hours</th>
+            <th>ID</th>
+            <th>User ID</th>
+            <th>Date</th>
+            <th>Hours</th>
         </tr>
         <tr th:each="userEntity : ${userEntries}">
             <td th:text="${userEntity.id}"></td>
@@ -37,7 +37,9 @@
         <button>Show All</button>
     </form>
 
-    <br><br>
+    <br>
+    <hr>
+    <br>
     <h1 class="h1class">View hours by user: "dropdown menu"</h1>
     <br>
     <form action="showHoursByUser" method="post" class="saveHour">
@@ -50,9 +52,11 @@
         <br>
         <button>Show Hours</button>
     </form>
-    <br><br>
+    <br>
+    <hr>
+    <br>
     <form action="showHoursByDate" method="post" class="saveHour">
-        Select by date
+        <h1 class="h1class">Select by date<br></h1>
         from:
         <br>
         <input type="date" name="dateFrom">
