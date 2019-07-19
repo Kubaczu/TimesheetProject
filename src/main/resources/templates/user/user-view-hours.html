@@ -17,33 +17,34 @@
 <div class="middle">
 
     <table class="greyGridTable">
-    <tr>
-        <th>Id</th>
-        <th>userId</th>
-        <th>date</th>
-        <th>hours</th>
-    </tr>
-    <tr th:each="userEntity : ${userEntries}">
-        <td th:text="${userEntity.id}"></td>
-        <td th:text="${userEntity.user.id}"></td>
-        <td th:text="${userEntity.date}"></td>
-        <td th:text="${userEntity.hours}"></td>
-    </tr>
-</table>
+        <tr>
+            <th>Id</th>
+            <th>userId</th>
+            <th>date</th>
+            <th>hours</th>
+        </tr>
+        <tr th:each="userEntity : ${userEntries}">
+            <td th:text="${userEntity.id}"></td>
+            <td th:text="${userEntity.user.id}"></td>
+            <td th:text="${userEntity.date}"></td>
+            <td th:text="${userEntity.hours}"></td>
+        </tr>
+    </table>
 
-<br>
-
-<form action="showHoursByDate" method="post" th:object="${timeFrame}">
-    Select by date
-    from:
     <br>
-    <input type="date" th:field="*{dateFrom}" th:errorClass="error">
+    <hr>
     <br>
-    to:
-    <br>
-    <input type="date" th:field="*{dateTo}" th:errorClass="error">
-    <button>Show hours</button>
-</form>
+    <form action="showHoursByDate" method="post" th:object="${timeFrame}" class="saveHour">
+        Select by date
+        from:
+        <br>
+        <input type="date" th:field="*{dateFrom}" th:errorClass="error">
+        <br>
+        to:
+        <br>
+        <input type="date" th:field="*{dateTo}" th:errorClass="error"><br>
+        <button>Show hours</button>
+    </form>
 
 </div>
 <div class="footer"><br>© Katarzyna Matuszewska, Jakub Turek 2019<br></div>

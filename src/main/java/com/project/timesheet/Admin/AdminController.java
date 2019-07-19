@@ -164,7 +164,7 @@ public class AdminController {
             @ModelAttribute("user") User user) {
         System.out.println(user.getId());
         userService.editUser(user);
-        return "redirect:/admin/showAdminMenu"; //  @TODO: poprawić
+        return "redirect:/admin/showUserEditForm"; //  @TODO: pokazuje stronę z listą userów, czy można linkować do miejsca na stronie?
     }
 
     //  Calculate
