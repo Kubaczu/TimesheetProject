@@ -5,10 +5,14 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 
 @Entity
@@ -24,8 +28,11 @@ public class TimeEntry extends BaseEntity {
 
 //    private int userId;
 
+    @NotBlank(message = "Field must not be empty")
     private String date;
 
-    private int hours;
+    @NotNull(message = "Field must not be empty")
+    @Range(min = 0, message = "Field must be between 1-100")
+    private Integer hours;
 
 }

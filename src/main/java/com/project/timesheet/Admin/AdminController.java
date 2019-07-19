@@ -11,11 +11,13 @@ import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -45,15 +47,14 @@ public class AdminController {
         return "/admin/admin-menu";
     }
 
-    //show main menu
-
-
     //  Show hours
     @RequestMapping("/showHoursViewMenu")
     public String showHoursViewMenu(
             Model model) {
         model.addAttribute("user", new User());
         model.addAttribute("usersList", userRepository.findAll());
+        model.addAttribute("timeFrame", new TimeFrame());
+        model.addAttribute("timeFrame2", new TimeFrame());
         return "/admin/admin-hours-view-menu";
     }
 
@@ -61,18 +62,23 @@ public class AdminController {
     public String showHoursAll(
             Model model) {
         model.addAttribute("user", new User());
-        model.addAttribute("usersList", userRepository.findAll());
         model.addAttribute("userEntries", timeEntryRepository.findAll());
+        model.addAttribute("usersList", userRepository.findAll());
+        model.addAttribute("timeFrame", new TimeFrame());
+      int userHoursId = 0;
         return "/admin/admin-hours-view-menu";
     }
 
     @RequestMapping("/showHoursByUser")
     public String showHoursByUser(
-            @ModelAttribute("user") User user,
+//            @ModelAttribute("user") User user,
+            @RequestParam int userHoursId,
+            @ModelAttribute("timeFrame") TimeFrame timeFrame,
             Model model) {
-        List<Integer> usersId = new ArrayList<>();
-        usersId.add(user.getId());
-        List<TimeEntry> userTimeEntries = timeEntryRepository.showUserHours(user.getId());
+
+//        List<Integer> usersId = new ArrayList<>();
+//        usersId.add(userHoursId);
+        List<TimeEntry> userTimeEntries = timeEntryRepository.showUserHours(userHoursId);
         model.addAttribute("userEntries", userTimeEntries);
         model.addAttribute("usersList", userRepository.findAll());
         return "/admin/admin-hours-view-menu";
@@ -80,8 +86,15 @@ public class AdminController {
 
     @RequestMapping("/showHoursByDate")
     public String showHoursByDate(
-            @ModelAttribute("dateFrame") TimeFrame timeFrame,
+
+            @Valid @ModelAttribute("timeFrame") TimeFrame timeFrame,
+            BindingResult bindingResult,
             Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("usersList", userRepository.findAll());
+            System.out.println("has some errors inside 'showHoursByDate' ");
+            return "/admin/admin-hours-view-menu";
+        }
         model.addAttribute("usersList", userRepository.findAll());
         model.addAttribute("userEntries", timeEntryRepository.showHoursByDate(timeFrame.getDateFrom(), timeFrame.getDateTo()));
         return "/admin/admin-hours-view-menu";
@@ -91,6 +104,7 @@ public class AdminController {
     //  Edit Hours
     @RequestMapping("/showHoursEditMenu")
     public String showHoursEditMenu(
+
             Model model) {
         model.addAttribute("entryToEdit", new TimeEntry());
         model.addAttribute("userEntries", timeEntryRepository.findAll());
@@ -130,7 +144,9 @@ public class AdminController {
 
         model.addAttribute("departmentTypes", UserDepartment.values());
         model.addAttribute("user", new User());
-        model.addAttribute("usersList", userRepository.findAll());
+        List<User> userList = userRepository.findAll();
+        System.out.println(userList.size());
+        model.addAttribute("usersList", userList);
         //DayOfWeek <- Enum
         return "/admin/admin-user-edit-form";
     }
@@ -162,8 +178,13 @@ public class AdminController {
 
     @RequestMapping("/showSalaryCalculationFormByTime")
     public String showSalaryCalculationForm(
-            @ModelAttribute("dateFrame") TimeFrame timeFrame,
+            @Valid @ModelAttribute("timeFrame") TimeFrame timeFrame,
+            BindingResult bindingResult,
             Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("usersList", userRepository.findAll());
+            return "/admin/admin-salary-calculation-menu";
+        }
         System.out.println(timeFrame.getDateFrom() + " " + timeFrame.getDateTo());
         model.addAttribute("calculatedSalary", userService.calculateSalary(timeEntryRepository.showHoursByDate(timeFrame.getDateFrom(), timeFrame.getDateTo())));
         return "/admin/admin-salary-calculation-form";
@@ -171,8 +192,13 @@ public class AdminController {
 
     @RequestMapping("/showSalaryCalculationFormByUser")
     public String showSalaryCalculationFormByUser(
-            @ModelAttribute("dateFrame") TimeFrame timeFrame,
+            @Valid @ModelAttribute("timeFrame") TimeFrame timeFrame,
+            BindingResult bindingResult,
             Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("usersList", userRepository.findAll());
+            return "/admin/admin-salary-calculation-menu";
+        }
         System.out.println(timeFrame.getUserId() + " " + timeFrame.getDateFrom() + " " + timeFrame.getDateTo());
         model.addAttribute("calculatedSalary", userService.calculateSalary(timeEntryRepository.showUserHoursByDate(timeFrame.getUserId(), timeFrame.getDateFrom(), timeFrame.getDateTo())));
         return "/admin/admin-salary-calculation-form";

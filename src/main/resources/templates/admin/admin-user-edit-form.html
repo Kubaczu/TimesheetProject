@@ -58,19 +58,18 @@
     <br>
 
     <h1 class="h1class">Please choose user to edit:</h1>
-    <form action="editUser" method="post" class="saveHour">
-        <select name="id">
+    <form action="editUser" method="post" th:object="${user}" class="saveHour">
+        <select th:field="*{id}">
             <option th:each="userEntity2 : ${usersList}"
-                    th:text="${userEntity2.firstName} + ' ' + ${userEntity2.LastName} " th:value="${userEntity2.id}">
-            <option/>
+                    th:text="${userEntity2.firstName} + ' ' + ${userEntity2.LastName} " th:value="${userEntity2.id}"/>
+
         </select>
         <br>
         <input placeholder="first name" type="text" name="firstName"><br>
         <input placeholder="last name" type="text" name="lastName"><br>
         <input placeholder="rate" type="number" name="rate"><br>
         <select name="userDepartment"><br>
-            <option value="" th:text="Department"></option>
-            <option th:each="ud :${departmentTypes}" th:text="${ud}" th:value="${ud}"></option>
+            <option th:each="ud :${departmentTypes}" th:text="${ud}" th:value="${ud}"/>
         </select>
 
         <br>

@@ -8,8 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,26 +41,6 @@ public class UserController {
         return "/user/user-menu";
     }
 
-    @RequestMapping("/showCalculateForm") //    @TODO: To be deleted
-    public String showCalculateForm(
-            Model model) {
-        System.out.println("inside method: showCalculateForm()");
-        model.addAttribute("user", new User());
-        return "/user/user-calculate";
-    }
-
-    @RequestMapping("/showUserCalculateSummary") //    @TODO: To be deleted
-    public String showUserCalculateSummary(
-            @ModelAttribute("user") User user) {
-        System.out.println("inside method: showUserCalculateSummary()");
-        System.out.println("tempHours: " + user.getTempHours());
-        user.setRate(60);
-        System.out.println("rate: " + user.getRate());
-        user.setSalary(user.getRate() * user.getTempHours());
-        System.out.println("salary: " + user.getSalary());
-        return "/user/user-calculate-summary";
-    }
-
     @RequestMapping("/showEnterHours")  // Pokazuje formularz do wpisywania godzin usera
     public String showEnterHours(
             Model model) {
@@ -71,22 +55,30 @@ public class UserController {
     @RequestMapping("/addHours")
     public String addHours(
             Model model,
-            @ModelAttribute("user") User user,
-            @ModelAttribute("timeEntry") TimeEntry timeEntry
-    ) {
-        System.out.println("wpisano " + user.getTempHours() + "h dnia:" + timeEntry.getDate());
-        timeEntryService.addHour(loggedUserId, timeEntry.getDate(), user.getTempHours());
-        String confirmationMessage = "Successfully added " + user.getTempHours() + " hours to " + timeEntry.getDate();
-        model.addAttribute("message", confirmationMessage);
-        return "/user/user-enter-hours";
+            @Valid @ModelAttribute("timeEntry") TimeEntry timeEntry,
+            BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            return "/user/user-enter-hours";
+        } else {
+            System.out.println("wpisano " + timeEntry.getHours() + "h dnia:" + timeEntry.getDate());
+
+            timeEntryService.addHour(
+                    loggedUserId, timeEntry.getDate(), timeEntry.getHours());
+
+            String confirmationMessage =
+                    "Successfully added " + timeEntry.getHours() + " hours to " + timeEntry.getDate();
+
+            model.addAttribute("message", confirmationMessage);
+            return "/user/user-enter-hours";
+        }
     }
 
     @RequestMapping("/showViewHours") // Pokazuje podsumowanie godzin usera
     public String showHours(Model model) {
 
         model.addAttribute("userEntries", timeEntryRepository.showUserHours(loggedUserId));
-        model.addAttribute("dateFrame", new TimeFrame());
-
+        model.addAttribute("timeFrame", new TimeFrame());
 
         System.out.println(loggedUserId);
         return "/user/user-view-hours";
@@ -94,13 +86,39 @@ public class UserController {
 
     @RequestMapping("/showHoursByDate")
     public String showHoursByDate(
-            @ModelAttribute("dateFrame") TimeFrame timeFrame,
+            @Valid @ModelAttribute("timeFrame") TimeFrame timeFrame,
+            BindingResult bindingResult,
             Model model
-    ) {
+            ) {
+
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("userEntries", timeEntryRepository.showUserHours(loggedUserId));
+            model.addAttribute("timeFrame", new TimeFrame());
+            return "/user/user-view-hours";
+        }
+//        if (timeFrame.getDateFrom() == ""){
+//            timeFrame.setDateFrom("0001-01-01");
+//            System.out.println("Date 'from' set to default");
+//        }
+//
+//        if (timeFrame.getDateTo()== ""){
+//            timeFrame.setDateTo("9999-12-31");
+//            System.out.println("Date 'to' set to default");
+//        }
+
+        System.out.println("dateFrom: " + timeFrame.getDateFrom() + " dateTo: " + timeFrame.getDateTo());
+        LocalDate dateFromLocal = LocalDate.parse(timeFrame.getDateFrom());
+        LocalDate dateToLocal = LocalDate.parse(timeFrame.getDateTo());
+
+        if (dateFromLocal.isAfter(dateToLocal)) {
+            String tempDate;
+            tempDate = timeFrame.getDateFrom();
+            timeFrame.setDateFrom(timeFrame.getDateTo());
+            timeFrame.setDateTo(tempDate);
+        }
         System.out.println("dateFrom: " + timeFrame.getDateFrom() + " dateTo: " + timeFrame.getDateTo());
         model.addAttribute("userEntries", timeEntryRepository.showUserHoursByDate(loggedUserId, timeFrame.getDateFrom(), timeFrame.getDateTo()));
         return "/user/user-view-hours";
     }
-
 
 }

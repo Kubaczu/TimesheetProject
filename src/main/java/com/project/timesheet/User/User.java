@@ -5,6 +5,7 @@ import com.project.timesheet.Entities.TimeEntry;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 
@@ -15,13 +16,17 @@ import java.util.List;
 @AllArgsConstructor
 public class User extends BaseEntity {
 
+
     String firstName;
     String lastName;
+
 
     Integer rate;
 
     @Enumerated(EnumType.STRING)
     UserDepartment userDepartment;
+
+    // No need to validate, temp fields only
 
     Integer tempHours;
     Integer salary;

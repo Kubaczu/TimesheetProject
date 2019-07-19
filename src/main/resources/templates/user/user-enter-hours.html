@@ -16,9 +16,9 @@
 
 <div class="middle">
     <h1 class="h1class">Pokazuje formularz do wpisywania godzin usera</h1>
-<form action="addHours" method="post">
-    <input type="date" name="date">
-    <input placeholder="hours" type="text" name="tempHours">
+<form action="addHours" method="post" th:object="${timeEntry}">
+    <input type="date" th:field="*{date}" th:errorClass="error">
+    <input placeholder="hours" type="number" th:field="*{hours}" th:errorClass="error">
     <button>Save</button>
     <br><br>
     <div th:text="${message}"></div>

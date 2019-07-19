@@ -33,15 +33,15 @@
 
 <br>
 
-<form action="showHoursByDate" method="post">
+<form action="showHoursByDate" method="post" th:object="${timeFrame}">
     Select by date
     from:
     <br>
-    <input type="date" name="dateFrom">
+    <input type="date" th:field="*{dateFrom}" th:errorClass="error">
     <br>
     to:
     <br>
-    <input type="date" name="dateTo">
+    <input type="date" th:field="*{dateTo}" th:errorClass="error">
     <button>Show hours</button>
 </form>
 

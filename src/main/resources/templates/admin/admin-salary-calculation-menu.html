@@ -40,13 +40,15 @@
 <hr>
 <br>
 <h1 class="h1class">Calculate salary for single user for selected period of time:</h1>
-<form action="showSalaryCalculationFormByUser" method="post" class="saveHour">
+<form action="showSalaryCalculationFormByUser" th:object="${timeFrame}" method="post" class="saveHour">
     Select user
     <br>
-    <select name="userId">
+    <select th:field="*{userId}">
         <option th:each="userEntity : ${usersList}"
-                th:text="${userEntity.firstName} + ' ' + ${userEntity.lastName} " th:value="${userEntity.id}">
-        <option/>
+                th:value="${userEntity.id}"
+                th:utext="${userEntity.firstName} + ' ' + ${userEntity.lastName} "
+                />
+
     </select>
     <br>
     from:

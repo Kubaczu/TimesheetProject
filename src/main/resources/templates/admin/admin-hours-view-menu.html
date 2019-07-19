@@ -42,12 +42,10 @@
     <br>
     <h1 class="h1class">View hours by user: "dropdown menu"</h1>
     <br>
-    <form action="showHoursByUser" method="post" class="saveHour">
-        <select name="id">
+    <form action="showHoursByUser"  method="post" class="saveHour">
+        <select name="userHoursId">
             <option th:each="userEntity : ${usersList}"
-                    th:text="${userEntity.id} + ' ' + ${userEntity.firstName} + ' ' + ${userEntity.lastName}"
-                    th:value="${userEntity.id}">
-            <option/>
+                    th:text="${userEntity.id} + ' ' + ${userEntity.firstName} + ' ' + ${userEntity.lastName}"  th:value="${userEntity.id}"/>
         </select>
         <br>
         <button>Show Hours</button>
@@ -55,15 +53,15 @@
     <br>
     <hr>
     <br>
-    <form action="showHoursByDate" method="post" class="saveHour">
+    <form action="showHoursByDate"  method="post" th:object="${timeFrame}" class="saveHour">
         <h1 class="h1class">Select by date<br></h1>
         from:
         <br>
-        <input type="date" name="dateFrom">
+        <input type="date" th:field="*{dateFrom}" th:errorClass="error">
         <br>
         to:
         <br>
-        <input type="date" name="dateTo"><br>
+        <input type="date" th:field="*{dateTo}" th:errorClass="error"><br>
         <button>Show hours</button>
     </form>
 </div>
