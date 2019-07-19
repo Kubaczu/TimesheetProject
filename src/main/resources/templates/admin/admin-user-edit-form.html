@@ -11,13 +11,16 @@
 </div>
 
 <div class="back-to-menu">
-    <li><a href="../admin-menu.html" th:href="@{/admin/showAdminMenu}">Admin menu</a></li>
+    <li><a th:href="@{/admin/showAdminMenu}">Admin menu</a></li>
+    <li><a th:href="@{#addUser}">Add new user</a></li>
+    <li><a th:href="@{#userList}">User list</a></li>
+    <li><a th:href="@{#editUser}">Select user to edit</a></li>
 </div>
 
 
 <div class="middle">
     <div>
-        <h1 class="h1class">Add new user:</h1>
+        <h1 class="h1class" id="addUser">Add new user:</h1>
     </div>
     <div>
 
@@ -37,7 +40,7 @@
     <hr>
     <br>
 
-    <h1 class="h1class">Users List:</h1>
+    <h1 class="h1class" id="userList">Users List:</h1>
     <table class="greyGridTable">
         <tr>
             <th>First Name</th>
@@ -57,7 +60,7 @@
     <hr>
     <br>
 
-    <h1 class="h1class">Please choose user to edit:</h1>
+    <h1 class="h1class" id="editUser">Select user to edit:</h1>
     <form action="editUser" method="post" th:object="${user}" class="saveHour">
         <select th:field="*{id}">
             <option th:each="userEntity2 : ${usersList}"
