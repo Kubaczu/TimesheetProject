@@ -5,6 +5,7 @@ import com.project.timesheet.Entities.TimeEntryRepository;
 import com.project.timesheet.Entities.TimeEntryService;
 import com.project.timesheet.Entities.TimeFrame;
 import com.project.timesheet.User.*;
+import com.project.timesheet.config.Roles;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -23,6 +24,8 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
+
+import static com.project.timesheet.config.Roles.USER;
 
 @Controller
 @RequestMapping("/admin")
@@ -196,6 +199,7 @@ public class AdminController {
 
         user.setUsername(user.getFirstName().concat(user.getLastName()));
         user.setPassword(encodedPassword);
+        user.setRoles(USER);
         userService.addUser(user);
 
         return "redirect:/admin/showUserEditForm";
