@@ -1,6 +1,7 @@
 package com.project.timesheet.User;
 
 import com.project.timesheet.Entities.*;
+import com.project.timesheet.FrontController;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -30,11 +31,17 @@ public class UserController {
     @Autowired
     TimeEntryService timeEntryService;
 
+    @Autowired
+    UserRepository userRepository;
+
     @RequestMapping("/showUserMenu") // Pokazuje główne menu usera
     public String showUserMenu(
             @ModelAttribute("loggedUser") User user) {
         if (loggedUserId == 0) {
-            loggedUserId = user.getId();
+            FrontController frontController = new FrontController();
+            String loggedUserName = frontController.getCurrentUserName();
+            loggedUserId = userRepository.findUserByUserNameLike(loggedUserName);
+
         }
         System.out.println("Logged user ID is : " + loggedUserId);
         System.out.println("inside method: showUserMenu()");

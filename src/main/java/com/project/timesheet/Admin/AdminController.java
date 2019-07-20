@@ -181,21 +181,10 @@ public class AdminController {
             return "/admin/admin-user-edit-form";
         }
         System.out.println(user.getFirstName() + " " + user.getLastName() + " " + user.getRate());
-//        String password;
-
-//        Random RANDOM = new SecureRandom();
-//        String ALPHABET = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-//
-//        StringBuilder returnValue = new StringBuilder(8);
-//        for (int i = 0; i < 8; i++) {
-//            returnValue.append(ALPHABET.charAt(RANDOM.nextInt(ALPHABET.length())));
-//        }
 
         String randomPassword = RandomStringUtils.randomAlphanumeric(8);
         System.out.println(randomPassword);
         String encodedPassword = passwordEncoder.encode(randomPassword);
-
-//        password = returnValue.toString();
 
         user.setUsername(user.getFirstName().concat(user.getLastName()));
         user.setPassword(encodedPassword);

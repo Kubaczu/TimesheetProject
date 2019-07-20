@@ -14,6 +14,10 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Query("SELECT u FROM User u WHERE upper(u.lastName) LIKE concat('%',upper(?1),'%')")
     List<User> findAllByNameLike(String searchText);
 
+    @Query("SELECT u.id FROM User u WHERE upper(u.username) LIKE concat('%',upper(?1),'%')")
+    int findUserByUserNameLike(String searchText);
+
+
 
 //    @Modifying
 //    @Query("UPDATE User u " +

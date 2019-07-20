@@ -24,7 +24,8 @@ public class FrontController {
         if (isAdmin) {
             return "redirect:admin/showAdminMenu";
         } else {
-            return "redirect:user/showUserMenu";
+            System.out.println("is Admin is false");
+            return "redirect:/user/showUserMenu";
         }
 
     }
@@ -32,6 +33,7 @@ public class FrontController {
         Authentication userAuthentication =
                 SecurityContextHolder.getContext().getAuthentication();
 
+        System.out.println("Inside Front Controller");
         if (userAuthentication == null) {
             return false;
         }
@@ -42,6 +44,15 @@ public class FrontController {
     }
 
     public String getCurrentUserName() {
+        Authentication userAuthentication =
+                SecurityContextHolder.getContext().getAuthentication();
+        if (userAuthentication == null) {
+            return null;
+        }
+        return userAuthentication.getName();
+    }
+
+    public String getCurrentId() {
         Authentication userAuthentication =
                 SecurityContextHolder.getContext().getAuthentication();
         if (userAuthentication == null) {
