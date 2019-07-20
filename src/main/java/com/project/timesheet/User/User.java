@@ -2,6 +2,7 @@ package com.project.timesheet.User;
 
 import com.project.timesheet.Entities.BaseEntity;
 import com.project.timesheet.Entities.TimeEntry;
+import com.project.timesheet.config.Roles;
 import lombok.*;
 import org.hibernate.validator.constraints.Range;
 
@@ -15,7 +16,6 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class User extends BaseEntity {
 
 
@@ -25,12 +25,18 @@ public class User extends BaseEntity {
     @NotBlank (message = " Please enter last name")
     String lastName;
 
+    String username;
+    String password;
+
     @NotNull (message = " Please enter rate")
     @Range (min = 20, max = 200, message = "Rate range must be between 20-200")
     Integer rate;
 
     @Enumerated(EnumType.STRING)
     UserDepartment userDepartment;
+
+    @Enumerated(EnumType.STRING)
+    Roles roles;
 
     Integer tempHours;
     Integer salary;

@@ -7,30 +7,27 @@
 </head>
 <body>
 <div class="header">
-Welcome! Please log in
+    Welcome! Please log in
 </div>
-<h1 class="h1class">Please choose account type:</h1>
 
 <div class="middle">
+<h1 class="h1class">Please choose account type:</h1>
 
-<div class="main-form">
-<form action="user/showUserMenu" method="post" th:align=".form" class="main-form">
-
-    <select name="id">
-        <option th:each="userEntity : ${usersList}"
-                th:text="${userEntity.id} + ' ' + ${userEntity.firstName} + ' ' + ${userEntity.lastName}"
-                th:value="${userEntity.id}">
-        <option/>
-    </select>
-
-    <br>
-    <button>Log in</button>
-</form>
+    <div class="main-form">
+        <form action="user/showUserMenu" method="post" th:align=".form" class="main-form">
+            <select name="id">
+                <option th:each="userEntity : ${usersList}"
+                        th:text="${userEntity.id} + ' ' + ${userEntity.firstName} + ' ' + ${userEntity.lastName}"
+                        th:value="${userEntity.id}">
+                <option/>
+            </select>
+            <br>
+            <button>Log in</button>
+        </form>
+    </div>
+    <br><br>
+    <a href="admin/showAdminMenu" th:align="center"> Admin Account</a>
 </div>
-<br><br>
-<a href="admin/showAdminMenu" th:align="center"> Admin Account</a>
-</div>
-
 <div class="footer"><br>© Katarzyna Matuszewska, Jakub Turek 2019<br></div>
 </body>
 </html>

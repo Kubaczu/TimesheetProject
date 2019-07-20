@@ -8,16 +8,21 @@ import com.project.timesheet.User.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 @Controller
 @RequestMapping("/admin")
@@ -128,7 +133,7 @@ public class AdminController {
             @Valid @ModelAttribute("entryNew") TimeEntry entryNew,
             BindingResult bindingResult,
             Model model
-            ) {
+    ) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("entryToEdit", new TimeEntry());
             model.addAttribute("userEntries", timeEntryRepository.findAll());
@@ -156,11 +161,15 @@ public class AdminController {
         return "/admin/admin-user-edit-form";
     }
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @RequestMapping("/addUser")
     public String addUser(
             @Valid @ModelAttribute("user") User user,
             BindingResult bindingResult,
-            Model model) {
+            Model model
+            ) {
         if (bindingResult.hasErrors()) {
             System.out.println("has some errors inside 'addUser'");
             List<User> userList = userRepository.findAll();
@@ -169,8 +178,27 @@ public class AdminController {
             return "/admin/admin-user-edit-form";
         }
         System.out.println(user.getFirstName() + " " + user.getLastName() + " " + user.getRate());
+//        String password;
+
+//        Random RANDOM = new SecureRandom();
+//        String ALPHABET = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+//
+//        StringBuilder returnValue = new StringBuilder(8);
+//        for (int i = 0; i < 8; i++) {
+//            returnValue.append(ALPHABET.charAt(RANDOM.nextInt(ALPHABET.length())));
+//        }
+
+        String randomPassword = RandomStringUtils.randomAlphanumeric(8);
+        System.out.println(randomPassword);
+        String encodedPassword = passwordEncoder.encode(randomPassword);
+
+//        password = returnValue.toString();
+
+        user.setUsername(user.getFirstName().concat(user.getLastName()));
+        user.setPassword(encodedPassword);
         userService.addUser(user);
-        return "redirect:/admin/showAdminMenu";
+
+        return "redirect:/admin/showUserEditForm";
     }
 
     @RequestMapping("/editUser")
@@ -187,7 +215,7 @@ public class AdminController {
         }
         System.out.println(user.getId());
         userService.editUser(user);
-        return "redirect:/admin/showUserEditForm"; //  @TODO: pokazuje stronę z listą userów, czy można linkować do miejsca na stronie?
+        return "redirect:/admin/showUserEditForm"; //
     }
 
     //  Calculate   // Vaildation Complete
