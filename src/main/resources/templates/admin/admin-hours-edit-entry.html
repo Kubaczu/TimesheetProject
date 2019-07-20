@@ -19,9 +19,10 @@
     <h1 class="h1class">Editing:</h1>
     <br>
     <div th:text="'User: ' + ${entryToChange.user.firstName} + ' ' + ${entryToChange.user.lastName} + ', Date: ' + ${entryToChange.date} + ' Hours: ' + ${entryToChange.hours}"></div>
-    <form action="saveHours" method="post" class="saveHour">
-        <input type="date" name="date"><br>
-        <input placeholder="hours" type="text" name="hours">
+
+    <form action="saveHours" method="post" th:object="${entryNew}" class="saveHour">
+        <input type="date" th:field="*{date}" th:errorClass="error"><span th:errors="*{date}"></span><br>
+        <input placeholder="hours" type="text" th:field="*{hours}" th:errorClass="error"><span th:errors="*{hours}"></span>
         <br>
         <button>Save</button>
         <br><br>

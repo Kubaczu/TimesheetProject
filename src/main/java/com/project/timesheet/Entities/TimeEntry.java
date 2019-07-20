@@ -28,11 +28,11 @@ public class TimeEntry extends BaseEntity {
 
 //    private int userId;
 
-    @NotBlank(message = "Field must not be empty")
+    @NotBlank (message = " Please select date")
     private String date;
 
-    @NotNull(message = "Field must not be empty")
-    @Range(min = 0, message = "Field must be between 1-100")
+    @NotNull(message = " Please enter hours")
+    @Range(min = 0, max = 12, message = "Hours range must be between 1-12")
     private Integer hours;
 
 }

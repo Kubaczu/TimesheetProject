@@ -18,8 +18,8 @@
     <h1 class="h1class">Fill form to save hours</h1>
     <br>
 <form action="addHours" method="post" th:object="${timeEntry}" class="saveHour">
-    <input type="date" th:field="*{date}" th:errorClass="error"><br>
-    <input placeholder="hours" type="number" th:field="*{hours}" th:errorClass="error"><br>
+    <input type="date" th:field="*{date}" th:errorClass="error"><span th:errors="*{date}"></span><br>
+    <input placeholder="hours" type="number" th:field="*{hours}" th:errorClass="error"><span th:errors="*{hours}"></span><br>
     <button>Save</button>
     <br><br>
     <div th:text="${message}"></div>

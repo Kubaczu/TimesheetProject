@@ -57,11 +57,11 @@
         <h1 class="h1class">Select by date<br></h1>
         from:
         <br>
-        <input type="date" th:field="*{dateFrom}" th:errorClass="error">
+        <input type="date" th:field="*{dateFrom}" th:errorClass="error"><span th:errors="*{dateFrom}"></span>
         <br>
         to:
         <br>
-        <input type="date" th:field="*{dateTo}" th:errorClass="error"><br>
+        <input type="date" th:field="*{dateTo}" th:errorClass="error"><span th:errors="*{dateTo}"></span><br>
         <button>Show hours</button>
     </form>
 </div>

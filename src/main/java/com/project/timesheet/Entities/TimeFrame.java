@@ -14,13 +14,11 @@ import javax.validation.constraints.*;
 public class TimeFrame {
 
 
-//    @DateTimeFormat (pattern="yyyy-MMM-dd")
-    @NotBlank
+    @NotBlank (message = " Please select date")
     private String dateFrom;
 
 
-//    @DateTimeFormat (pattern="yyyy-MMM-dd")
-    @NotBlank
+    @NotBlank (message = " Please select date")
     private String dateTo;
 
     int userId;

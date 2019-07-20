@@ -3,9 +3,11 @@ package com.project.timesheet.User;
 import com.project.timesheet.Entities.BaseEntity;
 import com.project.timesheet.Entities.TimeEntry;
 import lombok.*;
+import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.*;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 
@@ -17,16 +19,18 @@ import java.util.List;
 public class User extends BaseEntity {
 
 
+    @NotBlank (message = " Please enter first name")
     String firstName;
+
+    @NotBlank (message = " Please enter last name")
     String lastName;
 
-
+    @NotNull (message = " Please enter rate")
+    @Range (min = 20, max = 200, message = "Rate range must be between 20-200")
     Integer rate;
 
     @Enumerated(EnumType.STRING)
     UserDepartment userDepartment;
-
-    // No need to validate, temp fields only
 
     Integer tempHours;
     Integer salary;

@@ -12,10 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -39,6 +36,7 @@ public class AdminController {
     TimeEntryRepository timeEntryRepository;
 
     TimeEntry entryToEdit = new TimeEntry();
+    int userIdToEdit;
 
     //  Main Admin Menu
     @RequestMapping("/showAdminMenu")
@@ -47,37 +45,33 @@ public class AdminController {
         return "/admin/admin-menu";
     }
 
-    //  Show hours
+    //  Show hours // Vaildation Complete
     @RequestMapping("/showHoursViewMenu")
     public String showHoursViewMenu(
             Model model) {
         model.addAttribute("user", new User());
         model.addAttribute("usersList", userRepository.findAll());
         model.addAttribute("timeFrame", new TimeFrame());
-        model.addAttribute("timeFrame2", new TimeFrame());
         return "/admin/admin-hours-view-menu";
     }
 
     @RequestMapping("/showHoursAll")
     public String showHoursAll(
             Model model) {
+
         model.addAttribute("user", new User());
         model.addAttribute("userEntries", timeEntryRepository.findAll());
         model.addAttribute("usersList", userRepository.findAll());
         model.addAttribute("timeFrame", new TimeFrame());
-      int userHoursId = 0;
         return "/admin/admin-hours-view-menu";
     }
 
     @RequestMapping("/showHoursByUser")
     public String showHoursByUser(
-//            @ModelAttribute("user") User user,
             @RequestParam int userHoursId,
             @ModelAttribute("timeFrame") TimeFrame timeFrame,
             Model model) {
 
-//        List<Integer> usersId = new ArrayList<>();
-//        usersId.add(userHoursId);
         List<TimeEntry> userTimeEntries = timeEntryRepository.showUserHours(userHoursId);
         model.addAttribute("userEntries", userTimeEntries);
         model.addAttribute("usersList", userRepository.findAll());
@@ -86,7 +80,6 @@ public class AdminController {
 
     @RequestMapping("/showHoursByDate")
     public String showHoursByDate(
-
             @Valid @ModelAttribute("timeFrame") TimeFrame timeFrame,
             BindingResult bindingResult,
             Model model) {
@@ -101,13 +94,14 @@ public class AdminController {
     }
 
 
-    //  Edit Hours
+    //  Edit Hours  // Vaildation Complete
     @RequestMapping("/showHoursEditMenu")
     public String showHoursEditMenu(
-
             Model model) {
         model.addAttribute("entryToEdit", new TimeEntry());
         model.addAttribute("userEntries", timeEntryRepository.findAll());
+        String message = "";
+        model.addAttribute("message", message);
         return "/admin/admin-hours-edit-menu";
     }
 
@@ -115,6 +109,7 @@ public class AdminController {
     public String editHours(
             @RequestParam Integer id,
             Model model) {
+//        userIdToEdit = id;
         System.out.println("Entry id:" + id);
         List<Integer> listOfId = new ArrayList<>();
         listOfId.add(id);
@@ -123,13 +118,24 @@ public class AdminController {
         model.addAttribute("entryNew", new TimeEntry());
         entryToEdit.setUser(timeEntryList.get(0).getUser());
         entryToEdit.setId(timeEntryList.get(0).getId());
-        // TODO na podstawie entry id trzeba z bazy załadować aktualne dane i przygotować model do edycji
+
         return "/admin/admin-hours-edit-entry";
     }
 
-    @RequestMapping("/saveHours")
+    @PostMapping("/saveHours")
     public String saveHours(
-            @ModelAttribute("entryNew") TimeEntry entryNew) {
+
+            @Valid @ModelAttribute("entryNew") TimeEntry entryNew,
+            BindingResult bindingResult,
+            Model model
+            ) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("entryToEdit", new TimeEntry());
+            model.addAttribute("userEntries", timeEntryRepository.findAll());
+            String message = "Incorrect values, try again";
+            model.addAttribute("message", message);
+            return "/admin/admin-hours-edit-menu";
+        }
         entryNew.setUser(entryToEdit.getUser());
         entryNew.setId(entryToEdit.getId());
         System.out.println(entryNew.getDate() + " " + entryNew.getHours() + " " + entryNew.getUser() + " " + entryNew.getId());
@@ -147,27 +153,44 @@ public class AdminController {
         List<User> userList = userRepository.findAll();
         System.out.println(userList.size());
         model.addAttribute("usersList", userList);
-        //DayOfWeek <- Enum
         return "/admin/admin-user-edit-form";
     }
 
     @RequestMapping("/addUser")
     public String addUser(
-            @ModelAttribute("user") User user) {
+            @Valid @ModelAttribute("user") User user,
+            BindingResult bindingResult,
+            Model model) {
+        if (bindingResult.hasErrors()) {
+            System.out.println("has some errors inside 'addUser'");
+            List<User> userList = userRepository.findAll();
+            model.addAttribute("usersList", userList);
+            model.addAttribute("departmentTypes", UserDepartment.values());
+            return "/admin/admin-user-edit-form";
+        }
         System.out.println(user.getFirstName() + " " + user.getLastName() + " " + user.getRate());
         userService.addUser(user);
         return "redirect:/admin/showAdminMenu";
     }
 
-    @RequestMapping("/editUser") //  @TODO: skończyć
+    @RequestMapping("/editUser")
     public String editUser(
-            @ModelAttribute("user") User user) {
+            @Valid @ModelAttribute("user") User user,
+            BindingResult bindingResult,
+            Model model) {
+        if (bindingResult.hasErrors()) {
+            System.out.println("has some errors inside 'editUser'");
+            List<User> userList = userRepository.findAll();
+            model.addAttribute("usersList", userList);
+            model.addAttribute("departmentTypes", UserDepartment.values());
+            return "/admin/admin-user-edit-form";
+        }
         System.out.println(user.getId());
         userService.editUser(user);
         return "redirect:/admin/showUserEditForm"; //  @TODO: pokazuje stronę z listą userów, czy można linkować do miejsca na stronie?
     }
 
-    //  Calculate
+    //  Calculate   // Vaildation Complete
     @RequestMapping("/showSalaryCalculationMenu")
     public String showSalaryCalculationMenu(
             Model model) {
@@ -185,6 +208,7 @@ public class AdminController {
             model.addAttribute("usersList", userRepository.findAll());
             return "/admin/admin-salary-calculation-menu";
         }
+
         System.out.println(timeFrame.getDateFrom() + " " + timeFrame.getDateTo());
         model.addAttribute("calculatedSalary", userService.calculateSalary(timeEntryRepository.showHoursByDate(timeFrame.getDateFrom(), timeFrame.getDateTo())));
         return "/admin/admin-salary-calculation-form";

@@ -25,15 +25,15 @@
 
 <h1 class="h1class">Calculate salaries for all users for selected period of time:</h1>
 <br>
-<form action="showSalaryCalculationFormByTime" method="post" class="saveHour">
+<form action="showSalaryCalculationFormByTime" th:object="${timeFrame}" method="post" class="saveHour">
     Select by date
     from:
     <br>
-    <input type="date" name="dateFrom">
+    <input type="date" th:field="*{dateFrom}" th:errorClass="error"><span th:errors="*{dateFrom}"></span>
     <br>
     to:
     <br>
-    <input type="date" name="dateTo"><br>
+    <input type="date" th:field="*{dateTo}" th:errorClass="error"><span th:errors="*{dateTo}"></span><br>
     <button>Calculate All</button>
 </form>
 
@@ -48,16 +48,15 @@
                 th:value="${userEntity.id}"
                 th:utext="${userEntity.firstName} + ' ' + ${userEntity.lastName} "
                 />
-
     </select>
     <br>
     from:
     <br>
-    <input type="date" name="dateFrom">
+    <input type="date" th:field="*{dateFrom}" th:errorClass="error"><span th:errors="*{dateFrom}"></span>
     <br>
     to:
     <br>
-    <input type="date" name="dateTo"><br>
+    <input type="date" th:field="*{dateTo}" th:errorClass="error"><span th:errors="*{dateTo}"></span><br>
     <button>Calculate One</button>
     <br><br>
 </form>

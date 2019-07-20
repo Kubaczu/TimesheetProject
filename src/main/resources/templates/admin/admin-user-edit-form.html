@@ -24,11 +24,11 @@
     </div>
     <div>
 
-        <form action="addUser" method="post" class="saveHour">
-            <input placeholder="first name" type="text" name="firstName"><br>
-            <input placeholder="last name" type="text" name="lastName"><br>
-            <input placeholder="rate" type="number" name="rate"><br>
-            <select name="userDepartment"><br>
+        <form action="addUser" method="post" th:object="${user}" class="saveHour">
+            <input placeholder="first name" type="text"     th:field="*{firstName}" th:errorClass="error">  <span th:errors="*{firstName}"></span><br>
+            <input placeholder="last name"  type="text"     th:field="*{lastName}"  th:errorClass="error">  <span th:errors="*{lastName}"></span><br>
+            <input placeholder="rate"       type="number"   th:field="*{rate}"      th:errorClass="error">  <span th:errors="*{rate}"></span><br>
+            <select th:field="*{userDepartment}"><br>
                 <option value="" th:text="Department"></option>
                 <option th:each="ud :${departmentTypes}" th:text="${ud}" th:value="${ud}"></option>
             </select><br>
@@ -65,15 +65,15 @@
         <select th:field="*{id}">
             <option th:each="userEntity2 : ${usersList}"
                     th:text="${userEntity2.firstName} + ' ' + ${userEntity2.LastName} " th:value="${userEntity2.id}"/>
-
         </select>
         <br>
-        <input placeholder="first name" type="text" name="firstName"><br>
-        <input placeholder="last name" type="text" name="lastName"><br>
-        <input placeholder="rate" type="number" name="rate"><br>
-        <select name="userDepartment"><br>
-            <option th:each="ud :${departmentTypes}" th:text="${ud}" th:value="${ud}"/>
-        </select>
+        <input placeholder="first name" type="text"     th:field="*{firstName}" th:errorClass="error">  <span th:errors="*{firstName}"></span><br>
+        <input placeholder="last name"  type="text"     th:field="*{lastName}"  th:errorClass="error">  <span th:errors="*{lastName}"></span><br>
+        <input placeholder="rate"       type="number"   th:field="*{rate}"      th:errorClass="error">  <span th:errors="*{rate}"></span><br>
+        <select th:field="*{userDepartment}"><br>
+            <option value="" th:text="Department"></option>
+            <option th:each="ud :${departmentTypes}" th:text="${ud}" th:value="${ud}"></option>
+        </select><br>
 
         <br>
         <button>Edit</button>
