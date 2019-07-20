@@ -12,13 +12,34 @@
 
 <div class="back-to-menu">
     <li><a th:href="@{/admin/showAdminMenu}">Admin menu</a></li>
-    <li><a th:href="@{#addUser}">Add new user</a></li>
     <li><a th:href="@{#userList}">User list</a></li>
+    <li><a th:href="@{#addUser}">Add new user</a></li>
     <li><a th:href="@{#editUser}">Select user to edit</a></li>
 </div>
 
 
 <div class="middle">
+
+
+    <h1 class="h1class" id="userList">Users List:</h1>
+    <table class="greyGridTable">
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Rate</th>
+            <th>Department</th>
+        </tr>
+        <tr th:each="userEntity : ${usersList}">
+            <td th:text="${userEntity.firstName}"></td>
+            <td th:text="${userEntity.lastName}"></td>
+            <td th:text="${userEntity.rate}"></td>
+            <td th:text="${userEntity.userDepartment}"></td>
+        </tr>
+    </table>
+
+    <br>
+    <hr>
+    <br>
     <div>
         <h1 class="h1class" id="addUser">Add new user:</h1>
     </div>
@@ -40,25 +61,6 @@
     <hr>
     <br>
 
-    <h1 class="h1class" id="userList">Users List:</h1>
-    <table class="greyGridTable">
-        <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Rate</th>
-            <th>Department</th>
-        </tr>
-        <tr th:each="userEntity : ${usersList}">
-            <td th:text="${userEntity.firstName}"></td>
-            <td th:text="${userEntity.lastName}"></td>
-            <td th:text="${userEntity.rate}"></td>
-            <td th:text="${userEntity.userDepartment}"></td>
-        </tr>
-    </table>
-
-    <br>
-    <hr>
-    <br>
 
     <h1 class="h1class" id="editUser">Select user to edit:</h1>
     <form action="editUser" method="post" th:object="${user}" class="saveHour">
