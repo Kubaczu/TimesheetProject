@@ -26,9 +26,7 @@ public class FrontController {
         } else {
             return "redirect:user/showUserMenu";
         }
-//        model.addAttribute("loggedUser", new User());
-//        model.addAttribute("usersList", userRepository.findAll());
-//        return "main-menu";
+
     }
     public boolean isUserInRole(Roles role) {
         Authentication userAuthentication =
