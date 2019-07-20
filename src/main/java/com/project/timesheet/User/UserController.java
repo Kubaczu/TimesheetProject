@@ -60,18 +60,29 @@ public class UserController {
 
         if (bindingResult.hasErrors()) {
             return "/user/user-enter-hours";
-        } else {
-            System.out.println("wpisano " + timeEntry.getHours() + "h dnia:" + timeEntry.getDate());
-
-            timeEntryService.addHour(
-                    loggedUserId, timeEntry.getDate(), timeEntry.getHours());
-
-            String confirmationMessage =
-                    "Successfully added " + timeEntry.getHours() + " hours to " + timeEntry.getDate();
-
-            model.addAttribute("message", confirmationMessage);
-            return "/user/user-enter-hours";
         }
+
+        List<TimeEntry> timeEntryList = timeEntryRepository.findAll();
+        for (TimeEntry timeEntrySingle : timeEntryList){
+            if (timeEntrySingle.getDate().equals(timeEntry.getDate())){
+                String confirmationMessage =
+                        "Entry for this date already exists " + timeEntry.getDate();
+                model.addAttribute("message", confirmationMessage);
+                return "/user/user-enter-hours";
+            }
+        }
+
+        System.out.println("wpisano " + timeEntry.getHours() + "h dnia:" + timeEntry.getDate());
+
+        timeEntryService.addHour(
+                loggedUserId, timeEntry.getDate(), timeEntry.getHours());
+
+        String confirmationMessage =
+                "Successfully added " + timeEntry.getHours() + " hours to " + timeEntry.getDate();
+
+        model.addAttribute("message", confirmationMessage);
+        return "/user/user-enter-hours";
+
     }
 
     @RequestMapping("/showViewHours") // Pokazuje podsumowanie godzin usera
@@ -89,7 +100,7 @@ public class UserController {
             @Valid @ModelAttribute("timeFrame") TimeFrame timeFrame,
             BindingResult bindingResult,
             Model model
-            ) {
+    ) {
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("userEntries", timeEntryRepository.showUserHours(loggedUserId));
