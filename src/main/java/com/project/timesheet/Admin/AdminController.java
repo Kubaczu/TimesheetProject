@@ -5,13 +5,11 @@ import com.project.timesheet.Entities.TimeEntryRepository;
 import com.project.timesheet.Entities.TimeEntryService;
 import com.project.timesheet.Entities.TimeFrame;
 import com.project.timesheet.User.*;
-import com.project.timesheet.config.Roles;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,13 +17,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.security.SecureRandom;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Random;
 
-import static com.project.timesheet.config.Roles.USER;
+import static com.project.timesheet.config.Roles.ROLE_USER;
 
 @Controller
 @RequestMapping("/admin")
@@ -188,7 +183,7 @@ public class AdminController {
 
         user.setUsername(user.getFirstName().concat(user.getLastName()));
         user.setPassword(encodedPassword);
-        user.setRoles(USER);
+        user.setRoles(ROLE_USER);
         userService.addUser(user);
 
         return "redirect:/admin/showUserEditForm";

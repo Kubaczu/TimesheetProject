@@ -1,23 +1,18 @@
 package com.project.timesheet.config;
 
-import com.project.timesheet.User.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
 import javax.sql.DataSource;
 
-import static com.project.timesheet.config.Roles.ADMIN;
-import static com.project.timesheet.config.Roles.USER;
+import static com.project.timesheet.config.Roles.ROLE_ADMIN;
+import static com.project.timesheet.config.Roles.ROLE_USER;
 
 @Configuration
 @EnableWebSecurity
@@ -33,11 +28,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication()
-//                .withUser("user1").password(passwordEncoder().encode("user1")).roles("USER")
+//                .withUser("user1").password(passwordEncoder().encode("user1")).roles("ROLE_USER")
 //                .and()
-//                .withUser("user2").password(passwordEncoder().encode("user2")).roles("USER")
+//                .withUser("user2").password(passwordEncoder().encode("user2")).roles("ROLE_USER")
 //                .and()
-                .withUser("admin").password(passwordEncoder.encode("admin")).roles(ADMIN.getRoleName());
+                .withUser("admin").password(passwordEncoder.encode("admin")).roles(ROLE_ADMIN.getRoleName());
 
         auth.jdbcAuthentication()
                 .dataSource(dataSource)
@@ -53,8 +48,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/admin/**").hasRole(ADMIN.getRoleName())
-                .antMatchers("/user/**").hasRole(USER.getRoleName())
+                .antMatchers("/admin/**").hasRole(ROLE_ADMIN.getRoleName())
+                .antMatchers("/user/**").hasRole(ROLE_USER.getRoleName())
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

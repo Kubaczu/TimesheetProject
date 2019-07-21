@@ -1,9 +1,7 @@
 package com.project.timesheet;
 
-import com.project.timesheet.User.User;
 import com.project.timesheet.User.UserRepository;
 import com.project.timesheet.config.Roles;
-import org.apache.commons.lang3.RandomUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,7 +17,7 @@ public class FrontController {
 
     @RequestMapping("/")
     public String showMainMenu(Model model){
-        boolean isAdmin = isUserInRole(Roles.ADMIN);
+        boolean isAdmin = isUserInRole(Roles.ROLE_ADMIN);
         System.out.println(getCurrentUserName());
         if (isAdmin) {
             return "redirect:admin/showAdminMenu";

@@ -1,8 +1,8 @@
 package com.project.timesheet.config;
 
 public enum Roles {
-    ADMIN("ADMIN", "ROLE_ADMIN"),
-    USER("USER", "ROLE_USER");
+    ROLE_ADMIN("ADMIN", "ROLE_ADMIN"),
+    ROLE_USER("USER", "ROLE_USER");
 
     private String roleName;
     private String authorityName;

@@ -23,7 +23,7 @@ import java.util.List;
 @RequestMapping("/user")
 public class UserController {
 
-    int loggedUserId;
+    int loggedUserId = 0;
 
     @Autowired
     TimeEntryRepository timeEntryRepository;
