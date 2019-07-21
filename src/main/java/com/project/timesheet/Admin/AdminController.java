@@ -156,6 +156,8 @@ public class AdminController {
         List<User> userList = userRepository.findAll();
         System.out.println(userList.size());
         model.addAttribute("usersList", userList);
+        String message ="";
+        model.addAttribute("message", message);
         return "/admin/admin-user-edit-form";
     }
 
@@ -178,6 +180,7 @@ public class AdminController {
         System.out.println(user.getFirstName() + " " + user.getLastName() + " " + user.getRate());
 
         String randomPassword = RandomStringUtils.randomAlphanumeric(8);
+        String message = ("Password for user is " + randomPassword);
         System.out.println(randomPassword);
         String encodedPassword = passwordEncoder.encode(randomPassword);
 
@@ -186,7 +189,8 @@ public class AdminController {
         user.setRoles(ROLE_USER);
         userService.addUser(user);
 
-        return "redirect:/admin/showUserEditForm";
+        model.addAttribute("message", message);
+        return "/admin/admin-user-edit-form";
     }
 
     @RequestMapping("/editUser")
