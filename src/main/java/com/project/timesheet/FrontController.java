@@ -15,6 +15,13 @@ public class FrontController {
     @Autowired
     UserRepository userRepository;
 
+//    @RequestMapping ("/logout")
+//    public String logout () {
+//        System.out.println("Logout success");
+//        return "/logout";
+//
+//           }
+
     @RequestMapping("/")
     public String showMainMenu(Model model){
         boolean isAdmin = isUserInRole(Roles.ROLE_ADMIN);
