@@ -17,11 +17,8 @@ import static com.project.timesheet.config.Roles.ROLE_USER;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
-
     @Autowired
     private DataSource dataSource;
-
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -33,14 +30,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .withUser("user2").password(passwordEncoder().encode("user2")).roles("ROLE_USER")
 //                .and()
                 .withUser("admin").password(passwordEncoder.encode("admin")).roles(ROLE_ADMIN.getRoleName());
-
         auth.jdbcAuthentication()
                 .dataSource(dataSource)
                 .usersByUsernameQuery("SELECT username, password, 1 FROM user WHERE username = ?")
                 .authoritiesByUsernameQuery("SELECT username, roles FROM user WHERE username = ?")
-        .passwordEncoder(passwordEncoder);
-
-
+                .passwordEncoder(passwordEncoder);
     }
 
     @Override
@@ -62,7 +56,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .failureHandler(authenticationFailureHandler())
                 .and()
                 .logout()
-                .logoutUrl("/perform_logout")
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/login")
                 .deleteCookies("JSESSIONID")
 //                .logoutSuccessHandler(logoutSuccessHandler())
         ;
@@ -71,11 +66,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private LogoutSuccessHandler logoutSuccessHandler() {
         return null;
     }
-
 //    private AuthenticationFailureHandler authenticationFailureHandler() {
 //        return null;
 //    }
-
 //    @Bean
 //    public PasswordEncoder passwordEncoder() {
 //        return new BCryptPasswordEncoder();
