@@ -9,6 +9,15 @@ body {
     position: relative;
 }
 
+header {
+    margin: 0px;
+    background: #66ff99;
+    padding: 30px;
+    font-family: Calibri;
+    font-variant: small-caps;
+}
+
+
 .header {
     margin: 0px;
     background: #66ff99;
