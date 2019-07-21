@@ -32,6 +32,7 @@ public class User extends BaseEntity {
     @Range (min = 20, max = 200, message = "Rate range must be between 20-200")
     Integer rate;
 
+    @NotNull (message = "Please select a department")
     @Enumerated(EnumType.STRING)
     UserDepartment userDepartment;
 
